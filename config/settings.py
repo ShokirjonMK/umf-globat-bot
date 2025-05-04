@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 ALLOWED_HOSTS = ["167.172.128.121", "127.0.0.1", "localhost",  "umf.madami.uz", "www.umf.madami.uz",]
-DEBUG = True
+DEBUG = False
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
