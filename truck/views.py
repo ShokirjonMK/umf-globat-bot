@@ -29,8 +29,6 @@ def setup_bot():
 setup_bot()  # ✅ Tugmachalar noto‘g‘ri yuklanmasligi uchun
 
 class TelegramWebhookView(View):
-    """ Webhook orqali Telegram botni boshqarish """
-
     @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
@@ -41,14 +39,11 @@ class TelegramWebhookView(View):
             update = telebot.types.Update.de_json(json_data)
             bot.process_new_updates([update])
             return JsonResponse({"status": "ok"}, status=200)
-
         except ReadTimeout:
-            print("⚠️ Telegram API ReadTimeout xatosi. 5 soniyadan keyin qayta urinib ko‘ramiz.")
-            time.sleep(5)
+            print("⚠️ ReadTimeout")
             return JsonResponse({"status": "retry"}, status=500)
-
         except Exception as e:
-            print(f"⚠️ Noma’lum xato: {e}")
+            print(f"⚠️ Exception: {e}")
             return JsonResponse({"status": "error"}, status=500)
 
 
