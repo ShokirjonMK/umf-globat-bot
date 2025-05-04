@@ -22,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-ALLOWED_HOSTS = ["159.223.123.193", "127.0.0.1", "localhost",  "truck.khayitovdev.uz", "www.truck.khayitovdev.uz", '*']
-DEBUG = True
+ALLOWED_HOSTS = ["195.158.6.58", "127.0.0.1", "localhost",  "umf.madami.uz", "www.umf.madami.uz",]
+DEBUG = False
 
-SECRET_KEY = "pknskdf31d"
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
 
@@ -181,13 +181,13 @@ CELERY_RESULT_BACKEND = env('CELERY_RESULT_BACKEND', default='redis://production
 UNFOLD = {
     "SITE_TITLE": "Truck",
     "SITE_HEADER": "Truck",
-    "SITE_URL": "https://truck.khayitovdev.uz/",
+    "SITE_URL": "https://umf.madami.uz/",
 }
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://www.truck.khayitovdev.uz",
-    "https://truck.khayitovdev.uz"
+    "https://www.umf.madami.uz",
+    "https://umf.madami.uz"
 ]
 SESSION_COOKIE_SECURE = False  # Faqat test uchun!
 CSRF_COOKIE_SECURE = False      # Faqat test uchun!
