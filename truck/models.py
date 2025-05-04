@@ -1,0 +1,149 @@
+from django.db import models
+
+
+class TelegramUser(models.Model):
+    telegram_id = models.BigIntegerField(unique=True)
+    first_name = models.CharField(max_length=100, blank=True, null=True)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
+    username = models.CharField(max_length=100, blank=True, null=True)
+    language_code = models.CharField(max_length=10, blank=True, null=True)
+    is_bot = models.BooleanField(default=False)
+
+    joined_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def full_name(self):
+        return f"{self.first_name or ''} {self.last_name or ''}".strip()
+
+    def __str__(self):
+        return f"{self.full_name()} (@{self.username}) - {self.telegram_id}"
+
+
+class Company(models.Model):
+    title = models.CharField(max_length=100, unique=True, help_text="Kompaniya nomi (masalan: MUNISA)")
+    is_active = models.BooleanField(default=True, help_text="Kompaniya hozirda faolmi?")
+
+    def __str__(self):
+        return self.title
+
+
+class OrientationType(models.Model):
+    """
+    Har xil orientation turlari: ELD, DISPATCH, SAFETY, boshqalar.
+    """
+    name = models.CharField(max_length=50, unique=True, help_text="Orientation nomi (masalan: DISPATCH)")
+
+    def __str__(self):
+        return self.name
+
+
+class Truck(models.Model):
+    """
+    Truck (yuk mashinasi) haqida asosiy ma'lumotlar.
+    """
+    number = models.CharField(
+        max_length=20,
+        unique=True,
+        help_text="Truck ichki raqami (masalan: TRK-245)"
+    )
+    plate_number = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        help_text="Davlat raqami (masalan: TX 98325 AB)"
+    )
+    vin_number = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text="VIN (Vehicle Identification Number)"
+    )
+    make = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text="Ishlab chiqaruvchi (masalan: Volvo)"
+    )
+    model = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text="Model nomi (masalan: VNL)"
+    )
+    year = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+        help_text="Yil (masalan: 2020)"
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ('active', 'Active'),
+            ('inactive', 'Inactive'),
+            ('maintenance', 'Maintenance')
+        ],
+        default='active',
+        help_text="Truck holati: faol, faol emas yoki texnik xizmatda"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.number
+
+
+
+class TruckOrientation(models.Model):
+    """
+    Har bir Truck uchun har bir OrientationType bo‘yicha status.
+    """
+    class Status(models.TextChoices):
+        NOT_DONE = 'not_done', 'Not Done'
+        DONE = 'done', 'Done'
+
+    truck = models.ForeignKey(Truck, on_delete=models.CASCADE, related_name='orientations')
+    orientation_type = models.ForeignKey(OrientationType, on_delete=models.CASCADE)
+    status = models.CharField(
+        max_length=10,
+        choices=Status.choices,
+        default=Status.NOT_DONE,
+        help_text="Orientation holati"
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('truck', 'orientation_type')
+
+    def __str__(self):
+        return f"{self.truck.number} - {self.orientation_type.name} - {self.status}"
+
+
+class Driver(models.Model):
+    """
+    Driverlar haqida ma'lumotlar, kompaniya, truck, docusign va boshqalar bilan birga.
+    """
+    DRIVER_TYPE_CHOICES = [
+        ('company', 'Company Driver'),
+        ('owner', 'Owner Operator'),
+        ('reefer', 'Reefer Driver')
+    ]
+
+    MODE_CHOICES = [
+        ('online', 'Online'),
+        ('offline', 'Offline')
+    ]
+
+    full_name = models.CharField(max_length=100, help_text="Haydovchining to‘liq ismi")
+    date = models.DateField(help_text="Kiritilgan sana")
+    mode = models.CharField(max_length=10, choices=MODE_CHOICES, default='offline', help_text="Driverning hozirgi holati")
+    driver_type = models.CharField(max_length=10, choices=DRIVER_TYPE_CHOICES, blank=True, null=True, help_text="Driver turi")
+    company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True, blank=True)
+    truck = models.ForeignKey(Truck, on_delete=models.SET_NULL, null=True, blank=True)
+    confirmation = models.CharField(max_length=100, blank=True, null=True, help_text="Confirmation status")
+    sign = models.CharField(max_length=50, blank=True, null=True, help_text="Sign (masalan: signed)")
+    docusign = models.CharField(max_length=50, blank=True, null=True, help_text="DocuSign status")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.full_name

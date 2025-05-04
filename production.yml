@@ -1,0 +1,145 @@
+version: '3'
+
+volumes:
+  production_postgres_data_dev: {}
+  production_postgres_data_backups_dev: {}
+  production_static_volume_dev: {}
+  production_media_volume_dev: {}
+
+networks:
+  production_network_dev:
+    driver: bridge
+
+services:
+  production_dev:
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
+    image: django_production_dev
+    container_name: production_dev
+    command: /start
+    volumes:
+      - production_static_volume_dev:/var/www/static
+      - production_media_volume_dev:/var/www/media
+      - production_postgres_data_backups_dev:/app/backups 
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.envs/.production/.django
+      - ./.envs/.production/.postgres
+    depends_on:
+      - redis
+      - production_postgres_dev
+    networks:
+      - production_network_dev
+    restart: always  # ✅ Agar tushib qolsa, qayta ishga tushadi
+
+  production_postgres_dev:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: production_postgres_dev
+    container_name: production_postgres_dev
+    volumes:
+      - production_postgres_data_dev:/var/lib/postgresql/data:cached
+      - production_postgres_data_backups_dev:/backups:cached
+    env_file:
+      - ./.envs/.production/.postgres
+    networks:
+      - production_network_dev
+    restart: always  # ✅ Agar tushib qolsa, qayta ishga tushadi
+
+  redis:
+    image: redis:7-alpine
+    container_name: production_redis
+    env_file:
+      - ./.envs/.production/.django
+    networks:
+      - production_network_dev
+    restart: always  # ✅ Redis ham doim qayta ishga tushadi
+
+
+  production_celery_worker:
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
+    image: production_celery_worker_dev
+    command: celery -A config worker --loglevel=INFO
+    user: root 
+    volumes:
+      - .:/app
+      - production_static_volume_dev:/var/www/static
+      - production_media_volume_dev:/var/www/media
+      - production_postgres_data_backups_dev:/app/backups 
+    env_file:
+      - ./.envs/.production/.django
+      - ./.envs/.production/.postgres
+    depends_on:
+      - redis
+      - production_postgres_dev
+    networks:
+      - production_network_dev
+    restart: always
+
+  production_celery_beat:
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
+    image: production_celery_beat_dev
+    command: celery -A config beat --loglevel=INFO --schedule=/app/celerybeat/celerybeat-schedule
+    user: root  
+    volumes:
+      - .:/app
+      - ./celery/beat:/app/celerybeat
+      - production_postgres_data_backups_dev:/app/backups 
+    env_file:
+      - ./.envs/.production/.django
+      - ./.envs/.production/.postgres
+    environment:
+      - TZ=Asia/Tashkent
+    depends_on:
+      - redis
+      - production_postgres_dev
+    networks:
+      - production_network_dev
+    restart: always
+
+
+
+  bot:
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
+    image: baxtimni_izlab_bot_prod
+    command: python manage.py set_webhook
+    volumes:
+      - .:/app
+    env_file:
+      - ./.envs/.production/.django
+      - ./.envs/.production/.postgres
+    depends_on:
+      - production_postgres_dev
+      - redis
+    networks:
+      - production_network_dev
+    restart: always  # ✅ Bot qayta ishga tushadi, Webhook uzilmaydi
+
+  production_nginx:
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    image: config_nginx_dev
+    container_name: nginx_prod_dev
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - production_static_volume_dev:/var/www/static
+      - production_media_volume_dev:/var/www/media
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - production_dev
+    command: /bin/bash -c "chown -R nginx:nginx /var/www/static && chmod -R 755 /var/www/static && nginx -g 'daemon off;'"
+    networks:
+      - production_network_dev
+    restart: always  # ✅ NGINX tushib qolsa, qayta tiklanadi

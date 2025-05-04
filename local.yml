@@ -1,0 +1,77 @@
+version: '3'
+
+volumes:
+  local_postgres_data_dev: {}
+  local_postgres_data_backups_dev: {}
+  local_static_volume_dev: {}
+  local_media_volume_dev: {}
+
+networks:
+  local_network_dev:
+    driver: bridge
+
+services:
+  local_dev:
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    image: django_local_dev
+    container_name: local_dev
+    command: /start
+    volumes:
+      - local_static_volume_dev:/var/www/static
+      - local_media_volume_dev:/var/www/media
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    depends_on:
+      - redis
+      - local_postgres_dev
+    networks:
+      - local_network_dev
+    restart: always 
+
+  local_postgres_dev:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: local_postgres_dev
+    container_name: local_postgres_dev
+    volumes:
+      - local_postgres_data_dev:/var/lib/postgresql/data:cached
+      - local_postgres_data_backups_dev:/backups:cached
+    env_file:
+      - ./.envs/.local/.postgres
+    networks:
+      - local_network_dev
+    restart: always 
+
+  redis:
+    image: redis:7-alpine
+    container_name: local_redis
+    env_file:
+      - ./.envs/.local/.django
+    networks:
+      - local_network_dev
+    restart: always  
+
+
+  bot:
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    image: nakrutka_bot_local
+    command: python manage.py run_bot
+    volumes:
+      - .:/app
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    depends_on:
+      - local_postgres_dev
+      - redis
+    networks:
+      - local_network_dev
+    restart: always 

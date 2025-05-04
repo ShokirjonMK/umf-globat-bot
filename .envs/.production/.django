@@ -1,0 +1,18 @@
+
+PROJECT_NAME=truck_bot
+DJANGO_SETTINGS_MODULE=config.settings
+SECRET_KEY=django-insecure-b0la35&65v$lu9+33(nq$jfqjw(_k3bu5)1a5m@267!=ld3)7f
+
+TELEGRAM_BOT_TOKEN=6789551858:AAG6lHQ42Z6PXKwd6qgqhNR2fgTDj7i8eFA
+
+
+# Redis
+# ------------------------------------------------------------------------------
+REDIS_URL=redis://production_redis:6379/0
+
+# Celery
+# ------------------------------------------------------------------------------
+# .envs/.production/.django
+
+CELERY_BROKER_URL=redis://production_redis:6379/0
+CELERY_RESULT_BACKEND=redis://production_redis:6379/0

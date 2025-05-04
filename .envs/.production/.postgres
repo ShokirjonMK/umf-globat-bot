@@ -1,0 +1,5 @@
+POSTGRES_HOST=production_postgres_dev
+POSTGRES_PORT=5432
+POSTGRES_DB=baxtimni_izlab_production_database
+POSTGRES_USER=baxtimni_izlab_production_user
+POSTGRES_PASSWORD=reTRcHFedasdrrgMKczczDsdfFG234dwqsdfSDF36AyzQ4sss
