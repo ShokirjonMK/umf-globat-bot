@@ -10,7 +10,7 @@ from telebot import  types
 from types import SimpleNamespace
 from truck.models import Truck, TruckOrientation, OrientationType, TelegramUser, Driver
 
-ADMIN_IDS = [1784374540]
+ADMIN_IDS = [1784374540, 644442895]
 user_last_message = {}
 
 
