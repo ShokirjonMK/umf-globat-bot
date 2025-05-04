@@ -10,8 +10,8 @@ from django.views import View
 
 
 # 📌 Telegram BOT TOKEN
-TELEGRAM_BOT_TOKEN = "7247310081:AAGC_TEvCz77TZsce-IdWUSun85vbViuA_I"
-WEBHOOK_URL = f"https://truck.khayitovdev.uz/webhook/"
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+WEBHOOK_URL = f"https://umf.madami.uz/webhook/"
 
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
 
