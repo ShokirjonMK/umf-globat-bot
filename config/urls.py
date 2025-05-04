@@ -5,8 +5,8 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('truck-admin-panel/', admin.site.urls, name="truck_admin"),
-    path('', include('truck.urls'), name="truck"),
+    path('', admin.site.urls, name="truck_admin"),
+    path('bot/', include('truck.urls'), name="truck"),
 ]
 
 
