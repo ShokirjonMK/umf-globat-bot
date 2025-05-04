@@ -7,7 +7,6 @@ from truck.views import TelegramWebhookView
 
 urlpatterns = [
     path('', admin.site.urls, name="truck_admin"),
-    path('bot/', include('truck.urls'), name="truck"),
     path('bot/webhook/', TelegramWebhookView.as_view(), name="telegram_webhook"), 
 ]
 
