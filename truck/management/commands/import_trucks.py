@@ -2,7 +2,7 @@ import json
 from django.core.management.base import BaseCommand
 from datetime import datetime
 
-from truck.models import Company, Truck, Driver  
+from truck.models import Company, Truck, Driver
 
 class Command(BaseCommand):
     help = "Import trucks and drivers from JSON file"
@@ -15,16 +15,21 @@ class Command(BaseCommand):
         company, _ = Company.objects.get_or_create(title=company_title)
 
         for entry in data:
-            truck_number = entry.get(" ", "").strip() 
+            truck_number = entry.get(" ", "").strip()
             make = entry.get("Make")
             model = entry.get("Model")
+
             year_raw = entry.get("Year\n(OR)")
             year = int(float(year_raw)) if year_raw else None
+
             plate = entry.get("Plate")
             vin = entry.get("VIN\n(NM)")
-            status = 'active' if entry.get("Status", "").lower() == 'enroute' else 'inactive'
 
-            truck, created = Truck.objects.get_or_create(
+            # Null safe status check
+            status_raw = entry.get("Status")
+            status = "active" if status_raw and status_raw.lower() == "enroute" else "inactive"
+
+            truck, _ = Truck.objects.get_or_create(
                 number=truck_number,
                 defaults={
                     "make": make,
@@ -43,7 +48,7 @@ class Command(BaseCommand):
                 try:
                     date_obj = datetime.strptime(reg_date.split(" ")[0], "%Y-%m-%d").date()
                 except:
-                    date_obj = None
+                    pass
 
             if full_name:
                 driver_type_raw = entry.get("Whose Truck\n(NY)")
@@ -59,6 +64,5 @@ class Command(BaseCommand):
                         "driver_type": driver_type
                     }
                 )
-
 
         self.stdout.write(self.style.SUCCESS("✅ Truck va Driver ma'lumotlari JSON dan import qilindi."))
