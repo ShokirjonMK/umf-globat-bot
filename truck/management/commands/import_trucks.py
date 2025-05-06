@@ -46,6 +46,9 @@ class Command(BaseCommand):
                     date_obj = None
 
             if full_name:
+                driver_type_raw = entry.get("Whose Truck\n(NY)")
+                driver_type = "owner" if driver_type_raw and driver_type_raw.lower() == "owner" else "company"
+
                 Driver.objects.get_or_create(
                     full_name=full_name.strip(),
                     truck=truck,
@@ -53,8 +56,9 @@ class Command(BaseCommand):
                     defaults={
                         "mode": "offline",
                         "date": date_obj or datetime.now().date(),
-                        "driver_type": "owner" if entry.get("Whose Truck\n(NY)", "").lower() == "owner" else "company"
+                        "driver_type": driver_type
                     }
                 )
+
 
         self.stdout.write(self.style.SUCCESS("✅ Truck va Driver ma'lumotlari JSON dan import qilindi."))
