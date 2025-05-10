@@ -1,117 +1,98 @@
-import pandas as pd
-from django.core.management.base import BaseCommand
+import json
 from datetime import datetime
-from truck.models import Company, Truck, Driver, TruckStatus, TruckInsurance, TruckInspection
+from django.core.management.base import BaseCommand
+from truck.models import (
+    Truck, TruckStatus, Company, TruckInsurance,
+    TruckInspection, Driver
+)
+
 
 class Command(BaseCommand):
-    help = "Import trucks and related info from local Excel file"
+    help = "Import trucks and drivers from fleet.json"
 
-    def handle(self, *args, **kwargs):
-        file_path = "trucks.xlsx"
+    def handle(self, *args, **options):
+        with open('fleet.json', encoding='utf-8') as f:
+            data = json.load(f)
 
-        try:
-            df = pd.read_excel(file_path)
-        except Exception as e:
-            self.stderr.write(self.style.ERROR(f"❌ Excel faylni o‘qishda xatolik: {e}"))
-            return
-
-        def safe_date(val):
+        count = 0
+        for item in data:
             try:
-                return pd.to_datetime(val).date() if pd.notna(val) and val else None
-            except Exception:
-                return None
+                vin = item.get("VIN")
+                if not vin:
+                    continue
 
+                status_obj, _ = TruckStatus.objects.get_or_create(title=item.get("Status", "").strip())
+                company_obj, _ = Company.objects.get_or_create(title=item.get("Company", "").strip())
 
-        def safe_str(val):
-            return str(val).strip() if pd.notna(val) and val else ""
-
-        for _, row in df.iterrows():
-            truck_number = safe_str(row.get("#"))
-            make = safe_str(row.get("Make"))
-            model = safe_str(row.get("Model"))
-            tm_or_b = safe_str(row.get("TM/B"))
-            color = safe_str(row.get("Color"))
-            status_title = safe_str(row.get("Status"))
-            notes = safe_str(row.get("Notes"))
-            vin = safe_str(row.get("VIN"))
-            year = int(row.get("Year")) if pd.notna(row.get("Year")) else None
-            plate = safe_str(row.get("Plate"))
-            st = safe_str(row.get("ST"))
-            whose = safe_str(row.get("Whose Truck"))
-            owner = safe_str(row.get("Owner"))
-            company_title = safe_str(row.get("Company"))
-            driver_name = safe_str(row.get("Driver"))
-            phone = safe_str(row.get("Phone #"))
-
-            # 🔄 TruckStatus
-            status = None
-            if status_title:
-                status, _ = TruckStatus.objects.get_or_create(title=status_title)
-
-            # 🔄 Company
-            company, _ = Company.objects.get_or_create(title=company_title or "Unknown")
-
-            # 🔄 Truck
-            truck, _ = Truck.objects.update_or_create(
-                number=truck_number,
-                defaults={
-                    "make": make,
-                    "model": model,
-                    "tm_or_b": tm_or_b,
-                    "color": color,
-                    "status": status,
-                    "notes": notes,
-                    "vin_number": vin,
-                    "year": year,
-                    "plate_number": plate,
-                    "st": st,
-                    "whose_truck": whose,
-                    "owner_name": owner,
-                    "company": company,
-                    "driver_name": driver_name
-                }
-            )
-
-            # 🔄 Driver
-            reg_date = row.get("Registration")
-            date_obj = safe_date(reg_date) or datetime.now().date()
-            driver_type = "owner" if (whose and whose.lower() == "owner") else "company"
-
-            if driver_name:
-                Driver.objects.get_or_create(
-                    full_name=driver_name,
-                    truck=truck,
-                    company=company,
+                truck, _ = Truck.objects.update_or_create(
+                    vin_number=vin,
                     defaults={
-                        "mode": "offline",
-                        "date": date_obj,
-                        "driver_type": driver_type
-                    }
+                        "number": str(item.get(" ", "")).strip(),
+                        "plate_number": item.get("Plate"),
+                        "make": item.get("Make"),
+                        "model": item.get("Model"),
+                        "tm_or_b": item.get("TM/B"),
+                        "color": item.get("Color"),
+                        "year": int(item["Year"]) if item.get("Year") else None,
+                        "status": status_obj,
+                        "notes": item.get("Notes"),
+                        "st": item.get("ST"),
+                        "whose_truck": item.get("Whose Truck"),
+                        "owner_name": item.get("   Owner"),
+                        "company": company_obj,
+                        "driver_name": item.get("Driver"),
+                    },
                 )
 
-            # 🔄 TruckInsurance
-            physical_exp = safe_date(row.get("Physical Exp"))
-            TruckInsurance.objects.update_or_create(
-                truck=truck,
-                defaults={
-                    "proof_of_ownership": safe_str(row.get("PROOF OF OWNERSHIP")).upper() == "YES",
-                    "safety_carrier": safe_str(row.get("SAFETY CARRIER")).upper() == "YES",
-                    "liability_and_cargo": safe_str(row.get("Liability and Cargo Insurance")).upper() == "YES",
-                    "physical_damage": safe_str(row.get("Physical Damage Ins")).upper() == "YES",
-                    "physical_exp": physical_exp,
-                    "link": safe_str(row.get("Link"))
-                }
-            )
+                TruckInsurance.objects.update_or_create(
+                    truck=truck,
+                    defaults={
+                        "proof_of_ownership": item.get("PROOF OF OWNERSHIP", "").strip().upper() == "YES",
+                        "safety_carrier": item.get("SAFETY CARRIER", "").strip().upper() == "YES",
+                        "liability_and_cargo": item.get("Liability and Cargo Insurance", "").strip().upper() == "YES",
+                        "physical_damage": item.get("Physical Damage Ins", "").strip().upper() == "YES",
+                        "physical_exp": self.parse_date(item.get("Physical Exp")),
+                        "link": item.get("Link") if item.get("Link") != "RISK" else None,
+                    },
+                )
 
-            # 🔄 TruckInspection
-            TruckInspection.objects.update_or_create(
-                truck=truck,
-                defaults={
-                    "registration": safe_str(row.get("Registration")),
-                    "annual_inspection": safe_str(row.get("Annual inspection")),
-                    "rental_agreement": safe_str(row.get("Rental Agreement")),
-                    "outbound_inspection": safe_str(row.get("Outbound inspection"))
-                }
-            )
+                TruckInspection.objects.update_or_create(
+                    truck=truck,
+                    defaults={
+                        "registration": item.get("Registration.1", ""),
+                        "annual_inspection": item.get("Annual inspection", ""),
+                        "rental_agreement": item.get("Rental Agreement", ""),
+                        "outbound_inspection": item.get("Outbound inspection", ""),
+                    },
+                )
 
-        self.stdout.write(self.style.SUCCESS("✅ Excel'dan Truck va bog‘liq ma'lumotlar import qilindi."))
+                driver_name = item.get("Driver")
+                if driver_name:
+                    Driver.objects.update_or_create(
+                        full_name=driver_name.strip(),
+                        truck=truck,
+                        defaults={
+                            "company": company_obj,
+                            "date": datetime.today().date(),
+                            "mode": "offline",
+                            "driver_type": "company" if "owner" not in (item.get("Whose Truck") or "").lower() else "owner",
+                        }
+                    )
+
+                count += 1
+
+            except Exception as e:
+                self.stderr.write(f"❌ Error with VIN {item.get('VIN')}: {e}")
+
+        self.stdout.write(f"✅ {count} trucks and drivers imported.")
+
+    def parse_date(self, value):
+        try:
+            if not value or "risk" in str(value).lower() or "continuous" in str(value).lower():
+                return None
+            return datetime.fromisoformat(value)
+        except Exception:
+            try:
+                return datetime.strptime(value, "%m/%d/%Y")
+            except Exception:
+                return None
