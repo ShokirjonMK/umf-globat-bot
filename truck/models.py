@@ -51,7 +51,7 @@ class TruckStatus(models.Model):
 
 
 class Truck(models.Model):
-    number = models.CharField(max_length=100, unique=True, null=True, blank=True, help_text="Truck ichki raqami (masalan: TRK-245)")
+    number = models.CharField(max_length=100, null=True, blank=True, help_text="Truck ichki raqami (masalan: TRK-245)")
     plate_number = models.CharField(max_length=100, blank=True, null=True, help_text="Davlat raqami (masalan: TX 98325 AB)")
     vin_number = models.CharField(max_length=100, blank=True, null=True, help_text="VIN (Vehicle Identification Number)")
     

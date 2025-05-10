@@ -3,12 +3,12 @@ from datetime import datetime
 from django.core.management.base import BaseCommand
 from truck.models import (
     Truck, TruckStatus, Company, TruckInsurance,
-    TruckInspection, Driver
+    TruckInspection, Driver, OrientationType, TruckOrientation
 )
 
 
 class Command(BaseCommand):
-    help = "Import trucks and drivers from fleet.json (truck number only once)"
+    help = "Import trucks and drivers from fleet.json (truck number only once) + Orientation"
 
     def handle(self, *args, **options):
         with open('fleet.json', encoding='utf-8') as f:
@@ -17,12 +17,19 @@ class Command(BaseCommand):
         count = 0
         seen_numbers = set()
 
+        # 1. Orientation turlarini tayyorlab olamiz
+        orientation_names = ['DISPATCH', 'SAFETY', 'ELD']
+        orientations = {}
+        for name in orientation_names:
+            obj, _ = OrientationType.objects.get_or_create(name=name)
+            orientations[name] = obj
+
         for item in data:
             try:
                 vin = self.safe_strip(item.get("VIN"))
                 number = self.safe_strip(item.get(" ", ""))
                 if not vin or not number or number in seen_numbers:
-                    continue  # ✅ number oldin yaratilgan bo‘lsa o‘tkazib yuboramiz
+                    continue
 
                 seen_numbers.add(number)
 
@@ -88,12 +95,20 @@ class Command(BaseCommand):
                         }
                     )
 
+                # 2. Har bir truck uchun orientationlar create
+                for orientation in orientations.values():
+                    TruckOrientation.objects.get_or_create(
+                        truck=truck,
+                        orientation_type=orientation,
+                        defaults={"status": TruckOrientation.Status.NOT_DONE}
+                    )
+
                 count += 1
 
             except Exception as e:
                 self.stderr.write(f"❌ Error with VIN {item.get('VIN')}: {e}")
 
-        self.stdout.write(f"✅ {count} trucks and drivers imported (unique numbers only).")
+        self.stdout.write(f"✅ {count} trucks with drivers and orientations imported.")
 
     def parse_date(self, value):
         try:
