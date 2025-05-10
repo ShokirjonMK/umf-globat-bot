@@ -153,7 +153,6 @@ def main_handlers(bot):
             )
 
         orientations = TruckOrientation.objects.filter(truck=truck).select_related('orientation_type')
-        excluded_types = ["DISPATCH", "SAFETY", "ELD"]
 
         orientation_text = "🧾 *Orientation statuslari:*\n\n"
         markup = types.InlineKeyboardMarkup(row_width=1)
@@ -165,16 +164,12 @@ def main_handlers(bot):
             )
 
         for orientation in orientations:
-            if orientation.orientation_type.name in excluded_types:
-                continue
             status_icon = "✅" if orientation.status == "done" else "❌"
             updated = orientation.updated_at.strftime("%Y-%m-%d %H:%M")
             orientation_text += f"{orientation.orientation_type.name}: {status_icon} `{orientation.status}`\n_🕒 {updated}_\n"
 
         if user_id in ADMIN_IDS:
             for orientation in orientations:
-                if orientation.orientation_type.name in excluded_types:
-                    continue
                 markup.add(types.InlineKeyboardButton(
                     text=f"{orientation.orientation_type.name} - EDIT",
                     callback_data=f"edit:{orientation.id}"
@@ -205,34 +200,37 @@ def main_handlers(bot):
                 bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=markup)
             except TruckOrientation.DoesNotExist:
                 bot.answer_callback_query(call.id, "❌ Orientation topilmadi.")
-            return
-
-        if data[1] == "type" and len(data) == 3:
+        elif data[1] == "type" and len(data) == 3:
             truck_id = data[2]
             try:
                 truck = Truck.objects.get(id=truck_id)
                 markup = types.InlineKeyboardMarkup(row_width=2)
-
-                excluded_types = ["DISPATCH", "SAFETY", "ELD"]
-
-                orientation_types = OrientationType.objects.exclude(name__in=excluded_types)
-
-                for otype in orientation_types:
+                for otype in OrientationType.objects.all():
                     markup.add(types.InlineKeyboardButton(
                         text=otype.name,
                         callback_data=f"set:type:{truck_id}:{otype.id}"
                     ))
-
-                if not markup.keyboard:
-                    bot.answer_callback_query(call.id, "❗ Ko‘rsatiladigan orientation turlari mavjud emas.", show_alert=True)
-                    return
-
                 bot.edit_message_text(
                     chat_id=call.message.chat.id,
                     message_id=call.message.message_id,
                     text="✏️ Qaysi *orientation* turini o‘zgartirasiz?",
                     reply_markup=markup,
                     parse_mode="Markdown"
+                )
+            except Truck.DoesNotExist:
+                bot.answer_callback_query(call.id, "❌ Truck topilmadi.")
+        elif data[1] == "status" and len(data) == 3:
+            truck_id = data[2]
+            try:
+                truck = Truck.objects.get(id=truck_id)
+                markup = types.InlineKeyboardMarkup()
+                for s in TruckStatus.objects.all():
+                    markup.add(types.InlineKeyboardButton(s.title, callback_data=f"set:status:{truck_id}:{s.id}"))
+                bot.edit_message_text(
+                    chat_id=call.message.chat.id,
+                    message_id=call.message.message_id,
+                    text="🚜 Truck statusni tanlang:",
+                    reply_markup=markup
                 )
             except Truck.DoesNotExist:
                 bot.answer_callback_query(call.id, "❌ Truck topilmadi.")
