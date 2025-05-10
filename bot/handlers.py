@@ -340,6 +340,7 @@ def main_handlers(bot):
                 bot.answer_callback_query(call.id, f"❌ Sahifa yuklashda xatolik: {str(e)}", show_alert=True)
             return
         try:
+            
             _, _, status_id = call.data.split(":")
             status = TruckStatus.objects.get(id=status_id)
             trucks = Truck.objects.filter(status=status)
