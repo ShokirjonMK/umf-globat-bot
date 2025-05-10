@@ -139,15 +139,16 @@ def main_handlers(bot):
             f"🎨 *Color:* {truck.color or '—'}\n"
             f"🆔 *VIN:* `{truck.vin_number or '—'}`\n"
             f"🔢 *Plate:* `{truck.plate_number or '—'}`\n"
-            f"🗕 *Year:* {truck.year or '—'}\n"
+            f"📅 *Year:* {truck.year or '—'}\n"
             f"🌐 *State:* {truck.st or '—'}\n"
             f"👥 *Whose Truck:* {truck.whose_truck or '—'}\n"
             f"📌 *Owner:* {truck.owner_name or '—'}\n"
             f"📍 *Driver:* {truck.driver_name or '—'}\n"
             f"📄 *Notes:* {truck.notes or '—'}\n"
-            f"🚰 *Status:* {truck.status.title if truck.status else '—'}\n\n"
+            f"🛠 *Status:* {truck.status.title if truck.status else '—'}\n\n"
         )
 
+        # Orientation yaratish
         orientations = TruckOrientation.objects.filter(truck=truck).select_related('orientation_type')
         existing_type_ids = orientations.values_list('orientation_type_id', flat=True)
         missing_types = OrientationType.objects.exclude(id__in=existing_type_ids)
@@ -161,21 +162,25 @@ def main_handlers(bot):
 
         orientations = TruckOrientation.objects.filter(truck=truck).select_related('orientation_type')
 
-        orientation_text = "🗞 *Orientation statuslari:*\n\n"
+        orientation_text = "🧾 *Orientation statuslari:*\n\n"
         markup = types.InlineKeyboardMarkup(row_width=1)
 
+        # 1. Admin tugmalari yuqorida
         if user_id in ADMIN_IDS:
             markup.add(
                 types.InlineKeyboardButton("✏️ Orientation holatini o‘zgartirish", callback_data=f"edit:type:{truck.id}"),
                 types.InlineKeyboardButton("🚜 Truck statusni o‘zgartirish", callback_data=f"edit:status:{truck.id}")
             )
 
+        # 2. Orientation holati matni
         for orientation in orientations:
             status_icon = "✅" if orientation.status == "done" else "❌"
             updated = orientation.updated_at.strftime("%Y-%m-%d %H:%M")
             orientation_text += f"{orientation.orientation_type.name}: {status_icon} `{orientation.status}`\n_🕒 {updated}_\n"
 
-            if user_id in ADMIN_IDS:
+        # 3. Har bir orientation uchun edit tugmasi (pastga qo‘shiladi)
+        if user_id in ADMIN_IDS:
+            for orientation in orientations:
                 markup.add(types.InlineKeyboardButton(
                     text=f"{orientation.orientation_type.name} - EDIT",
                     callback_data=f"edit:{orientation.id}"
@@ -185,6 +190,8 @@ def main_handlers(bot):
 
         m = bot.send_message(chat_id, text, parse_mode="Markdown", reply_markup=markup if markup.keyboard else None)
         user_last_message[chat_id].append(m.message_id)
+
+
 
     @bot.callback_query_handler(func=lambda call: call.data.startswith("edit"))
     def handle_edit_callbacks(call):
