@@ -2,15 +2,15 @@ import os
 import sys
 import django
 
+from telebot import types
+from types import SimpleNamespace
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings") 
 django.setup()
 
-from telebot import types
-from types import SimpleNamespace
 from truck.models import AllowedGroup, Truck, TruckOrientation, OrientationType, TelegramUser, Driver, TruckStatus
 
-ADMIN_IDS = [1784374540, 644442895]
 user_last_message = {}
 
 def main_handlers(bot):
@@ -40,14 +40,14 @@ def main_handlers(bot):
         )
 
         delete_last(message.chat.id)
-        m = bot.send_message(message.chat.id, "🔍 Truck raqamini kiriting (masalan: /truck 245):")
+        m = bot.send_message(message.chat.id, "\ud83d\udd0d Truck raqamini kiriting (masalan: /truck 245):")
         user_last_message[message.chat.id] = [message.message_id, m.message_id]
 
     @bot.message_handler(commands=["getid"])
     def get_chat_id(message):
         bot.send_message(
             message.chat.id,
-            f"🆔 Chat ID: `{message.chat.id}`\n👥 Type: {message.chat.type}",
+            f"\ud83c\udd94 Chat ID: `{message.chat.id}`\n\ud83d\udc65 Type: {message.chat.type}",
             parse_mode="Markdown"
         )
 
@@ -69,7 +69,7 @@ def main_handlers(bot):
             ):
                 bot.send_message(
                     chat_id,
-                    "⛔ *Ushbu guruhda bot ishlashi taqiqlangan.*\nIltimos, botdan foydalanish uchun *admin bilan bog‘laning.*",
+                    "\u26d4 *Ushbu guruhda bot ishlashi taqiqlangan.*\nIltimos, botdan foydalanish uchun *admin bilan bog\u2018laning.*",
                     parse_mode="Markdown"
                 )
                 return
@@ -79,7 +79,7 @@ def main_handlers(bot):
         except IndexError:
             m = bot.send_message(
                 chat_id,
-                "❗ Truck raqamini `/truck TRK-245` tarzida kiriting.",
+                "\u2757 Truck raqamini `/truck TRK-245` tarzida kiriting.",
                 parse_mode="Markdown"
             )
             user_last_message[chat_id] = [message.message_id, m.message_id]
@@ -100,21 +100,20 @@ def main_handlers(bot):
 
     def process_truck_number(message, truck_number):
         chat_id = message.chat.id
-        user_id = message.from_user.id
 
         delete_last(chat_id)
 
         trucks = Truck.objects.select_related('status', 'company').filter(number=truck_number).order_by('-created_at')
 
         if not trucks.exists():
-            m = bot.send_message(chat_id, "❌ Bunday truck topilmadi.")
+            m = bot.send_message(chat_id, "\u274c Bunday truck topilmadi.")
             user_last_message[chat_id] = [message.message_id, m.message_id]
             return
 
         truck = trucks.first()
 
         driver = Driver.objects.filter(truck=truck).order_by('-created_at').first()
-        company_name = driver.company.title if driver and driver.company else "—"
+        company_name = driver.company.title if driver and driver.company else "\u2014"
         driver_info = (
             f"👤 Driver: {driver.full_name}\n"
             f"🗓 Sana: {driver.date}\n"
@@ -154,26 +153,24 @@ def main_handlers(bot):
 
         orientations = TruckOrientation.objects.filter(truck=truck).select_related('orientation_type')
 
-        orientation_text = "🧾 *Orientation statuslari:*\n\n"
+        orientation_text = "\ud83d\udcdf *Orientation statuslari:*\n\n"
         markup = types.InlineKeyboardMarkup(row_width=1)
 
-        if user_id in ADMIN_IDS:
-            markup.add(
-                types.InlineKeyboardButton("✏️ Orientation holatini o‘zgartirish", callback_data=f"edit:type:{truck.id}"),
-                types.InlineKeyboardButton("🚜 Truck statusni o‘zgartirish", callback_data=f"edit:status:{truck.id}")
-            )
+        markup.add(
+            types.InlineKeyboardButton("\u270f\ufe0f Orientation holatini o\u2018zgartirish", callback_data=f"edit:type:{truck.id}"),
+            types.InlineKeyboardButton("\ud83d\ude9c Truck statusni o\u2018zgartirish", callback_data=f"edit:status:{truck.id}")
+        )
 
         for orientation in orientations:
-            status_icon = "✅" if orientation.status == "done" else "❌"
+            status_icon = "\u2705" if orientation.status == "done" else "\u274c"
             updated = orientation.updated_at.strftime("%Y-%m-%d %H:%M")
-            orientation_text += f"{orientation.orientation_type.name}: {status_icon} `{orientation.status}`\n_🕒 {updated}_\n"
+            orientation_text += f"{orientation.orientation_type.name}: {status_icon} `{orientation.status}`\n_\ud83d\udd52 {updated}_\n"
 
-        if user_id in ADMIN_IDS:
-            for orientation in orientations:
-                markup.add(types.InlineKeyboardButton(
-                    text=f"{orientation.orientation_type.name} - EDIT",
-                    callback_data=f"edit:{orientation.id}"
-                ))
+        for orientation in orientations:
+            markup.add(types.InlineKeyboardButton(
+                text=f"{orientation.orientation_type.name} - EDIT",
+                callback_data=f"edit:{orientation.id}"
+            ))
 
         text = truck_info + driver_info + orientation_text
         m = bot.send_message(chat_id, text, parse_mode="Markdown", reply_markup=markup if markup.keyboard else None)
@@ -181,11 +178,6 @@ def main_handlers(bot):
 
     @bot.callback_query_handler(func=lambda call: call.data.startswith("edit"))
     def handle_edit_callbacks(call):
-        user_id = int(call.from_user.id)
-        if user_id not in ADMIN_IDS:
-            bot.answer_callback_query(call.id, "⛔ Faqat admin o‘zgartira oladi.", show_alert=True)
-            return
-
         data = call.data.split(":")
 
         if len(data) == 2:
@@ -194,12 +186,12 @@ def main_handlers(bot):
                 orientation = TruckOrientation.objects.get(id=orientation_id)
                 markup = types.InlineKeyboardMarkup()
                 markup.add(
-                    types.InlineKeyboardButton("✏️ Orientation holatini o‘zgartirish", callback_data=f"edit:type:{orientation.truck.id}"),
-                    types.InlineKeyboardButton("🚜 Truck statusni o‘zgartirish", callback_data=f"edit:status:{orientation.truck.id}")
+                    types.InlineKeyboardButton("\u270f\ufe0f Orientation holatini o\u2018zgartirish", callback_data=f"edit:type:{orientation.truck.id}"),
+                    types.InlineKeyboardButton("\ud83d\ude9c Truck statusni o\u2018zgartirish", callback_data=f"edit:status:{orientation.truck.id}")
                 )
                 bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=markup)
             except TruckOrientation.DoesNotExist:
-                bot.answer_callback_query(call.id, "❌ Orientation topilmadi.")
+                bot.answer_callback_query(call.id, "\u274c Orientation topilmadi.")
         elif data[1] == "type" and len(data) == 3:
             truck_id = data[2]
             try:
@@ -213,12 +205,12 @@ def main_handlers(bot):
                 bot.edit_message_text(
                     chat_id=call.message.chat.id,
                     message_id=call.message.message_id,
-                    text="✏️ Qaysi *orientation* turini o‘zgartirasiz?",
+                    text="\u270f\ufe0f Qaysi *orientation* turini o\u2018zgartirasiz?",
                     reply_markup=markup,
                     parse_mode="Markdown"
                 )
             except Truck.DoesNotExist:
-                bot.answer_callback_query(call.id, "❌ Truck topilmadi.")
+                bot.answer_callback_query(call.id, "\u274c Truck topilmadi.")
         elif data[1] == "status" and len(data) == 3:
             truck_id = data[2]
             try:
@@ -229,39 +221,29 @@ def main_handlers(bot):
                 bot.edit_message_text(
                     chat_id=call.message.chat.id,
                     message_id=call.message.message_id,
-                    text="🚜 Truck statusni tanlang:",
+                    text="\ud83d\ude9c Truck statusni tanlang:",
                     reply_markup=markup
                 )
             except Truck.DoesNotExist:
-                bot.answer_callback_query(call.id, "❌ Truck topilmadi.")
+                bot.answer_callback_query(call.id, "\u274c Truck topilmadi.")
 
     @bot.callback_query_handler(func=lambda call: call.data.startswith("set:status"))
     def set_truck_status(call):
-        user_id = int(call.from_user.id)
-        if user_id not in ADMIN_IDS:
-            bot.answer_callback_query(call.id, "⛔ Ruxsat yo‘q.", show_alert=True)
-            return
-
         _, _, truck_id, status_id = call.data.split(":")
         try:
             truck = Truck.objects.get(id=truck_id)
             new_status = TruckStatus.objects.get(id=status_id)
             truck.status = new_status
             truck.save()
-            bot.answer_callback_query(call.id, f"✅ Truck status yangilandi: {new_status.title}")
+            bot.answer_callback_query(call.id, f"\u2705 Truck status yangilandi: {new_status.title}")
             delete_last(call.message.chat.id)
             fake_message = SimpleNamespace(chat=call.message.chat, from_user=call.from_user, message_id=call.message.message_id)
             process_truck_number(fake_message, truck.number)
         except Exception:
-            bot.answer_callback_query(call.id, "❌ Xatolik yuz berdi.")
+            bot.answer_callback_query(call.id, "\u274c Xatolik yuz berdi.")
 
     @bot.callback_query_handler(func=lambda call: call.data.startswith("set:type"))
     def set_orientation_status(call):
-        user_id = int(call.from_user.id)
-        if user_id not in ADMIN_IDS:
-            bot.answer_callback_query(call.id, "⛔ Ruxsat yo‘q.", show_alert=True)
-            return
-
         try:
             _, _, truck_id, orientation_type_id = call.data.split(":")
             truck = Truck.objects.get(id=truck_id)
@@ -281,7 +263,7 @@ def main_handlers(bot):
 
             bot.send_message(
                 call.message.chat.id,
-                f"✅ *{otype.name}* statusi: `{orientation.status}` ga o‘zgartirildi.",
+                f"\u2705 *{otype.name}* statusi: `{orientation.status}` ga o\u2018zgartirildi.",
                 parse_mode="Markdown"
             )
 
@@ -290,108 +272,4 @@ def main_handlers(bot):
             process_truck_number(fake_message, truck.number)
 
         except Exception:
-            bot.answer_callback_query(call.id, "❌ O‘zgartirishda xatolik yuz berdi.")
-
-    @bot.message_handler(commands=["status"])
-    def handle_status_command(message):
-        markup = types.InlineKeyboardMarkup(row_width=2)
-        for status in TruckStatus.objects.all():
-            markup.add(types.InlineKeyboardButton(
-                text=status.title,
-                callback_data=f"view:status:{status.id}"
-            ))
-        bot.send_message(message.chat.id, "🚦 Qaysi truck statusni ko‘rmoqchisiz?", reply_markup=markup)
-
-    @bot.callback_query_handler(func=lambda call: call.data.startswith("view:status:") or call.data.startswith("page:"))
-    def view_trucks_by_status(call):
-        try:
-            if call.data.startswith("view:status:"):
-                _, _, status_id = call.data.split(":")
-                page = 0
-            else:
-                _, status_id, page = call.data.split(":")
-                page = int(page)
-
-            status = TruckStatus.objects.get(id=status_id)
-            trucks = Truck.objects.filter(status=status)
-            truck_numbers = list(trucks.values_list('number', flat=True))
-
-            batch_size = 10
-            total_pages = (len(truck_numbers) + batch_size - 1) // batch_size
-            total_count = len(truck_numbers)
-
-            start = page * batch_size
-            end = start + batch_size
-            chunk = truck_numbers[start:end]
-
-            text = f"*{status.title}* statusidagi trucklar (sahifa {page + 1}/{total_pages}) - jami: {total_count} ta\n\n"
-            text += "\n".join(f"`{num}`" for num in chunk)
-
-            markup = types.InlineKeyboardMarkup()
-            buttons = []
-            if page > 0:
-                buttons.append(types.InlineKeyboardButton("⬅️ Oldingi", callback_data=f"page:{status.id}:{page - 1}"))
-            if page < total_pages - 1:
-                buttons.append(types.InlineKeyboardButton("Keyingi ➡️", callback_data=f"page:{status.id}:{page + 1}"))
-            if buttons:
-                markup.add(*buttons)
-
-            if call.data.startswith("view:status:"):
-                bot.send_message(call.message.chat.id, text, parse_mode="Markdown", reply_markup=markup)
-            else:
-                bot.edit_message_text(
-                    chat_id=call.message.chat.id,
-                    message_id=call.message.message_id,
-                    text=text,
-                    reply_markup=markup,
-                    parse_mode="Markdown"
-                )
-        except Exception as e:
-            bot.answer_callback_query(call.id, f"❌ Xatolik: {str(e)}", show_alert=True)
-
-    @bot.message_handler(commands=["truck"])
-    def handle_truck_command(message):
-        chat = message.chat
-        chat_id = chat.id
-        chat_id_str = str(chat_id)
-
-        if chat.type in ["group", "supergroup"]:
-            allowed_ids = list(AllowedGroup.objects.values_list("group_id", flat=True))
-            chat_username = chat.username
-            chat_invite_link = getattr(chat, "invite_link", None)
-
-            if not (
-                chat_id_str in allowed_ids or
-                (chat_username and chat_username in allowed_ids) or
-                (chat_invite_link and chat_invite_link in allowed_ids)
-            ):
-                bot.send_message(
-                    chat_id,
-                    "⛔ *Ushbu guruhda bot ishlashi taqiqlangan.*\nIltimos, botdan foydalanish uchun *admin bilan bog‘laning.*",
-                    parse_mode="Markdown"
-                )
-                return
-
-        try:
-            truck_number = message.text.split(" ", 1)[1].strip()
-        except IndexError:
-            m = bot.send_message(
-                chat_id,
-                "❗ Truck raqamini `/truck TRK-245` tarzida kiriting.",
-                parse_mode="Markdown"
-            )
-            user_last_message[chat_id] = [message.message_id, m.message_id]
-            return
-
-        TelegramUser.objects.update_or_create(
-            telegram_id=message.from_user.id,
-            defaults={
-                'first_name': message.from_user.first_name,
-                'last_name': message.from_user.last_name,
-                'username': message.from_user.username,
-                'language_code': message.from_user.language_code,
-                'is_bot': message.from_user.is_bot
-            }
-        )
-
-        process_truck_number(message, truck_number)
+            bot.answer_callback_query(call.id, "\u274c O\u2018zgartirishda xatolik yuz berdi.")
