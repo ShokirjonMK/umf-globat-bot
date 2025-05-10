@@ -133,3 +133,21 @@ class Driver(models.Model):
 
     def __str__(self):
         return self.full_name
+
+
+
+class TruckInsurance(models.Model):
+    truck = models.OneToOneField("Truck", on_delete=models.CASCADE, related_name="insurance")
+    proof_of_ownership = models.BooleanField(default=False)
+    safety_carrier = models.BooleanField(default=False)
+    liability_and_cargo = models.BooleanField(default=False)
+    physical_damage = models.BooleanField(default=False)
+    physical_exp = models.DateField(blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
+
+class TruckInspection(models.Model):
+    truck = models.OneToOneField("Truck", on_delete=models.CASCADE, related_name="inspection")
+    registration = models.CharField(max_length=10)
+    annual_inspection = models.CharField(max_length=20)
+    rental_agreement = models.CharField(max_length=20)
+    outbound_inspection = models.CharField(max_length=20)

@@ -1,68 +1,100 @@
-import json
+import pandas as pd
 from django.core.management.base import BaseCommand
 from datetime import datetime
-
-from truck.models import Company, Truck, Driver
+from truck.models import Company, Truck, Driver, TruckStatus, TruckInsurance, TruckInspection
 
 class Command(BaseCommand):
-    help = "Import trucks and drivers from JSON file"
+    help = "Import full truck info including insurance and inspection"
 
     def handle(self, *args, **kwargs):
-        with open("Asadga.json", "r", encoding="utf-8") as f:
-            data = json.load(f)
+        url = "https://docs.google.com/spreadsheets/d/1w1dvleB--83DaNHMoyp6dswHtwgWL2yqZKe6hzl9sOo/export?format=csv&gid=1603469063"
+        df = pd.read_csv(url)
 
-        company_title = "One Step Cargo Inc"
-        company, _ = Company.objects.get_or_create(title=company_title)
+        for _, row in df.iterrows():
+            truck_number = str(row.get("#")).strip()
+            make = row.get("Make")
+            model = row.get("Model")
+            tm_or_b = row.get("TM/B")
+            color = row.get("Color")
+            status_title = row.get("Status")
+            notes = row.get("Notes")
+            vin = row.get("VIN")
+            year = int(row.get("Year")) if pd.notna(row.get("Year")) else None
+            plate = row.get("Plate")
+            st = row.get("ST")
+            whose = row.get("Whose Truck")
+            owner = row.get("Owner")
+            company_title = row.get("Company")
+            driver_name = row.get("Driver")
+            phone = row.get("Phone #")
 
-        for entry in data:
-            truck_number = entry.get(" ", "").strip()
-            make = entry.get("Make")
-            model = entry.get("Model")
+            # Get or create truck status
+            if status_title:
+                status, _ = TruckStatus.objects.get_or_create(title=status_title)
+            else:
+                status = None
 
-            year_raw = entry.get("Year\n(OR)")
-            year = int(float(year_raw)) if year_raw else None
+            company, _ = Company.objects.get_or_create(title=company_title or "Unknown")
 
-            plate = entry.get("Plate")
-            vin = entry.get("VIN\n(NM)")
-
-            # Null safe status check
-            status_raw = entry.get("Status")
-            status = "active" if status_raw and status_raw.lower() == "enroute" else "inactive"
-
-            truck, _ = Truck.objects.get_or_create(
+            truck, _ = Truck.objects.update_or_create(
                 number=truck_number,
                 defaults={
                     "make": make,
                     "model": model,
+                    "tm_or_b": tm_or_b,
+                    "color": color,
+                    "status": status,
+                    "notes": notes,
+                    "vin_number": vin,
                     "year": year,
                     "plate_number": plate,
-                    "vin_number": vin,
-                    "status": status,
+                    "st": st,
+                    "whose_truck": whose,
+                    "owner_name": owner,
+                    "company": company,
+                    "driver_name": driver_name
                 }
             )
 
-            full_name = entry.get("Driver")
-            reg_date = entry.get("Registration")
-            date_obj = None
-            if reg_date:
-                try:
-                    date_obj = datetime.strptime(reg_date.split(" ")[0], "%Y-%m-%d").date()
-                except:
-                    pass
+            # Create Driver
+            reg_date = row.get("Registration")
+            date_obj = pd.to_datetime(reg_date).date() if pd.notna(reg_date) else datetime.now().date()
+            driver_type = "owner" if str(whose).lower() == "owner" else "company"
 
-            if full_name:
-                driver_type_raw = entry.get("Whose Truck\n(NY)")
-                driver_type = "owner" if driver_type_raw and driver_type_raw.lower() == "owner" else "company"
-
+            if driver_name:
                 Driver.objects.get_or_create(
-                    full_name=full_name.strip(),
+                    full_name=driver_name,
                     truck=truck,
                     company=company,
                     defaults={
                         "mode": "offline",
-                        "date": date_obj or datetime.now().date(),
+                        "date": date_obj,
                         "driver_type": driver_type
                     }
                 )
 
-        self.stdout.write(self.style.SUCCESS("✅ Truck va Driver ma'lumotlari JSON dan import qilindi."))
+            # Create TruckInsurance
+            TruckInsurance.objects.update_or_create(
+                truck=truck,
+                defaults={
+                    "proof_of_ownership": row.get("PROOF OF OWNERSHIP") == "YES",
+                    "safety_carrier": row.get("SAFETY CARRIER") == "YES",
+                    "liability_and_cargo": row.get("Liability and Cargo Insurance") == "Yes",
+                    "physical_damage": row.get("Physical Damage Ins") == "Yes",
+                    "physical_exp": pd.to_datetime(row.get("Physical Exp"), errors='coerce').date() if pd.notna(row.get("Physical Exp")) else None,
+                    "link": row.get("Link")
+                }
+            )
+
+            # Create TruckInspection
+            TruckInspection.objects.update_or_create(
+                truck=truck,
+                defaults={
+                    "registration": row.get("Registration"),
+                    "annual_inspection": row.get("Annual inspection"),
+                    "rental_agreement": row.get("Rental Agreement"),
+                    "outbound_inspection": row.get("Outbound inspection")
+                }
+            )
+
+        self.stdout.write(self.style.SUCCESS("✅ Truck, Driver, Insurance, Inspection ma'lumotlari import qilindi."))
