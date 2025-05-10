@@ -17,12 +17,13 @@ class Command(BaseCommand):
 
         def safe_date(val):
             try:
-                return pd.to_datetime(val, dayfirst=True).date() if pd.notna(val) and val else None
+                return pd.to_datetime(val).date() if pd.notna(val) and val else None
             except Exception:
                 return None
 
+
         def safe_str(val):
-            return str(val).strip() if pd.notna(val) and val else None
+            return str(val).strip() if pd.notna(val) and val else ""
 
         for _, row in df.iterrows():
             truck_number = safe_str(row.get("#"))
