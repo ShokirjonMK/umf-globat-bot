@@ -59,17 +59,29 @@ def main_handlers(bot):
 
         if chat.type in ["group", "supergroup"]:
             allowed_ids = list(AllowedGroup.objects.values_list("group_id", flat=True))
-            if not any(val in allowed_ids for val in [chat_id_str, chat.username, getattr(chat, "invite_link", None)]):
+            chat_username = chat.username
+            chat_invite_link = getattr(chat, "invite_link", None)
+
+            if not (
+                chat_id_str in allowed_ids or
+                (chat_username and chat_username in allowed_ids) or
+                (chat_invite_link and chat_invite_link in allowed_ids)
+            ):
                 bot.send_message(
                     chat_id,
-                    "⛔ *Ushbu guruhda bot ishlashi taqiqlangan.*\nIltimos, admin bilan bog‘laning.",
-                    parse_mode="Markdown")
+                    "⛔ *Ushbu guruhda bot ishlashi taqiqlangan.*\nIltimos, botdan foydalanish uchun *admin bilan bog‘laning.*",
+                    parse_mode="Markdown"
+                )
                 return
 
         try:
             truck_number = message.text.split(" ", 1)[1].strip()
         except IndexError:
-            m = bot.send_message(chat_id, "❗ Truck raqamini `/truck TRK-245` tarzida kiriting.", parse_mode="Markdown")
+            m = bot.send_message(
+                chat_id,
+                "❗ Truck raqamini `/truck TRK-245` tarzida kiriting.",
+                parse_mode="Markdown"
+            )
             user_last_message[chat_id] = [message.message_id, m.message_id]
             return
 
@@ -83,7 +95,8 @@ def main_handlers(bot):
                 'is_bot': message.from_user.is_bot
             }
         )
-        process_truck_number(message, truck_number, bot)
+
+        process_truck_number(message, truck_number)
 
     def process_truck_number(message, truck_number):
         chat_id = message.chat.id
@@ -254,7 +267,7 @@ def main_handlers(bot):
             bot.answer_callback_query(call.id, f"✅ Truck status yangilandi: {new_status.title}")
             delete_last(call.message.chat.id)
             fake_message = SimpleNamespace(chat=call.message.chat, from_user=call.from_user, message_id=call.message.message_id)
-            process_truck_number(fake_message, truck.number, bot)
+            process_truck_number(fake_message, truck.number)
         except Exception:
             bot.answer_callback_query(call.id, "❌ Xatolik yuz berdi.")
 
@@ -269,20 +282,28 @@ def main_handlers(bot):
             _, _, truck_id, orientation_type_id = call.data.split(":")
             truck = Truck.objects.get(id=truck_id)
             otype = OrientationType.objects.get(id=orientation_type_id)
+
             orientation, _ = TruckOrientation.objects.get_or_create(
                 truck=truck,
                 orientation_type=otype,
                 defaults={"status": TruckOrientation.Status.NOT_DONE}
             )
-            orientation.status = TruckOrientation.Status.NOT_DONE if orientation.status == "done" else TruckOrientation.Status.DONE
+
+            orientation.status = (
+                TruckOrientation.Status.NOT_DONE if orientation.status == "done"
+                else TruckOrientation.Status.DONE
+            )
             orientation.save()
+
             bot.send_message(
                 call.message.chat.id,
                 f"✅ *{otype.name}* statusi: `{orientation.status}` ga o‘zgartirildi.",
                 parse_mode="Markdown"
             )
+
             delete_last(call.message.chat.id)
             fake_message = SimpleNamespace(chat=call.message.chat, from_user=call.from_user, message_id=call.message.message_id)
-            process_truck_number(fake_message, truck.number, bot)
+            process_truck_number(fake_message, truck.number)
+
         except Exception:
             bot.answer_callback_query(call.id, "❌ O‘zgartirishda xatolik yuz berdi.")
