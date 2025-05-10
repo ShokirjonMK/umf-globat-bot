@@ -13,7 +13,7 @@ class TelegramUser(models.Model):
     first_name = models.CharField(max_length=100, blank=True, null=True)
     last_name = models.CharField(max_length=100, blank=True, null=True)
     username = models.CharField(max_length=100, blank=True, null=True)
-    language_code = models.CharField(max_length=10, blank=True, null=True)
+    language_code = models.CharField(max_length=100, blank=True, null=True)
     is_bot = models.BooleanField(default=False)
 
     joined_at = models.DateTimeField(auto_now_add=True)
@@ -38,34 +38,34 @@ class OrientationType(models.Model):
     """
     Har xil orientation turlari: ELD, DISPATCH, SAFETY, boshqalar.
     """
-    name = models.CharField(max_length=50, unique=True, help_text="Orientation nomi (masalan: DISPATCH)")
+    name = models.CharField(max_length=100, unique=True, help_text="Orientation nomi (masalan: DISPATCH)")
 
     def __str__(self):
         return self.name
 
 class TruckStatus(models.Model):
-    title = models.CharField(max_length=50, unique=True, help_text="Holat nomi (masalan: Enroute, In Maintenance, Active)")
+    title = models.CharField(max_length=100, unique=True, help_text="Holat nomi (masalan: Enroute, In Maintenance, Active)")
     
     def __str__(self):
         return self.title
 
 
 class Truck(models.Model):
-    number = models.CharField(max_length=20, unique=True, help_text="Truck ichki raqami (masalan: TRK-245)")
-    plate_number = models.CharField(max_length=50, blank=True, null=True, help_text="Davlat raqami (masalan: TX 98325 AB)")
-    vin_number = models.CharField(max_length=50, blank=True, null=True, help_text="VIN (Vehicle Identification Number)")
+    number = models.CharField(max_length=100, unique=True, help_text="Truck ichki raqami (masalan: TRK-245)")
+    plate_number = models.CharField(max_length=100, blank=True, null=True, help_text="Davlat raqami (masalan: TX 98325 AB)")
+    vin_number = models.CharField(max_length=100, blank=True, null=True, help_text="VIN (Vehicle Identification Number)")
     
-    make = models.CharField(max_length=50, blank=True, null=True)
-    model = models.CharField(max_length=50, blank=True, null=True)
-    tm_or_b = models.CharField(max_length=10, blank=True, null=True, help_text="TM/B (masalan: AT, MT)")
-    color = models.CharField(max_length=30, blank=True, null=True)
+    make = models.CharField(max_length=100, blank=True, null=True)
+    model = models.CharField(max_length=100, blank=True, null=True)
+    tm_or_b = models.CharField(max_length=100, blank=True, null=True, help_text="TM/B (masalan: AT, MT)")
+    color = models.CharField(max_length=100, blank=True, null=True)
     
     status = models.ForeignKey(TruckStatus, on_delete=models.SET_NULL, null=True, blank=True, help_text="Truck status (masalan: Enroute)")
     notes = models.TextField(blank=True, null=True)
     
     year = models.PositiveIntegerField(blank=True, null=True)
-    st = models.CharField(max_length=5, blank=True, null=True, help_text="ST (masalan: TX, IL)")
-    whose_truck = models.CharField(max_length=50, blank=True, null=True, help_text="Whose Truck (masalan: Owner)")
+    st = models.CharField(max_length=100, blank=True, null=True, help_text="ST (masalan: TX, IL)")
+    whose_truck = models.CharField(max_length=100, blank=True, null=True, help_text="Whose Truck (masalan: Owner)")
     
     owner_name = models.CharField(max_length=100, blank=True, null=True)
     company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True, blank=True)
@@ -90,7 +90,7 @@ class TruckOrientation(models.Model):
     truck = models.ForeignKey(Truck, on_delete=models.CASCADE, related_name='orientations')
     orientation_type = models.ForeignKey(OrientationType, on_delete=models.CASCADE)
     status = models.CharField(
-        max_length=10,
+        max_length=100,
         choices=Status.choices,
         default=Status.NOT_DONE,
         help_text="Orientation holati"
@@ -121,13 +121,13 @@ class Driver(models.Model):
 
     full_name = models.CharField(max_length=100, help_text="Haydovchining to‘liq ismi")
     date = models.DateField(help_text="Kiritilgan sana")
-    mode = models.CharField(max_length=10, choices=MODE_CHOICES, default='offline', help_text="Driverning hozirgi holati")
-    driver_type = models.CharField(max_length=50, choices=DRIVER_TYPE_CHOICES, blank=True, null=True, help_text="Driver turi")
+    mode = models.CharField(max_length=100, choices=MODE_CHOICES, default='offline', help_text="Driverning hozirgi holati")
+    driver_type = models.CharField(max_length=100, choices=DRIVER_TYPE_CHOICES, blank=True, null=True, help_text="Driver turi")
     company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True, blank=True)
     truck = models.ForeignKey(Truck, on_delete=models.SET_NULL, null=True, blank=True)
     confirmation = models.CharField(max_length=100, blank=True, null=True, help_text="Confirmation status")
-    sign = models.CharField(max_length=50, blank=True, null=True, help_text="Sign (masalan: signed)")
-    docusign = models.CharField(max_length=50, blank=True, null=True, help_text="DocuSign status")
+    sign = models.CharField(max_length=100, blank=True, null=True, help_text="Sign (masalan: signed)")
+    docusign = models.CharField(max_length=100, blank=True, null=True, help_text="DocuSign status")
 
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -147,7 +147,7 @@ class TruckInsurance(models.Model):
 
 class TruckInspection(models.Model):
     truck = models.OneToOneField("Truck", on_delete=models.CASCADE, related_name="inspection")
-    registration = models.CharField(max_length=10)
-    annual_inspection = models.CharField(max_length=20)
-    rental_agreement = models.CharField(max_length=20)
-    outbound_inspection = models.CharField(max_length=20)
+    registration = models.CharField(max_length=100)
+    annual_inspection = models.CharField(max_length=100)
+    rental_agreement = models.CharField(max_length=100)
+    outbound_inspection = models.CharField(max_length=100)
