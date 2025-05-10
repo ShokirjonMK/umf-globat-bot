@@ -1,6 +1,6 @@
 [
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -36,7 +36,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -72,7 +72,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*07",
+        " ": "07",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -108,7 +108,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -144,7 +144,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -180,7 +180,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -216,7 +216,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -252,7 +252,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*011",
+        " ": "011",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "MT",
@@ -1152,7 +1152,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -1440,7 +1440,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -1476,7 +1476,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": "AT",
@@ -1512,7 +1512,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -1548,7 +1548,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*05",
+        " ": "05",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -1584,7 +1584,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*06",
+        " ": "06",
         "Make": "International",
         "Model": "LT625",
         "TM/B": null,
@@ -1620,7 +1620,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*017",
+        " ": "017",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -1656,7 +1656,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*038",
+        " ": "038",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -1692,7 +1692,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*055",
+        " ": "055",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -1728,7 +1728,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*093",
+        " ": "093",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -1764,7 +1764,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": "AT",
@@ -1800,7 +1800,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -1836,7 +1836,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*008",
+        " ": "008",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -1872,7 +1872,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*008",
+        " ": "008",
         "Make": "International",
         "Model": "LT625",
         "TM/B": null,
@@ -1908,7 +1908,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*014",
+        " ": "014",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -2160,7 +2160,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*080",
+        " ": "080",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -4032,7 +4032,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0012",
+        " ": "0012",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -4068,7 +4068,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0027",
+        " ": "0027",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -4104,7 +4104,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0113",
+        " ": "0113",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -4140,7 +4140,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0445",
+        " ": "0445",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -4176,7 +4176,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0707",
+        " ": "0707",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -4212,7 +4212,7 @@
         "Outbound inspection": null
     },
     {
-        " ": "*0995",
+        " ": "0995",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -6048,7 +6048,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -6084,7 +6084,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -6120,7 +6120,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -6156,7 +6156,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*03",
+        " ": "03",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -6192,7 +6192,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*06",
+        " ": "06",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -6228,7 +6228,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*07",
+        " ": "07",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -6804,7 +6804,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -6840,7 +6840,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*006",
+        " ": "006",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -6876,7 +6876,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -6912,7 +6912,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*010",
+        " ": "010",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -6948,7 +6948,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*012",
+        " ": "012",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -8640,7 +8640,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0566",
+        " ": "0566",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -8676,7 +8676,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0915",
+        " ": "0915",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -8712,7 +8712,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0917",
+        " ": "0917",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -10404,7 +10404,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -10440,7 +10440,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*084",
+        " ": "084",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -10692,7 +10692,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0012",
+        " ": "0012",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -10728,7 +10728,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0527",
+        " ": "0527",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -10836,7 +10836,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -10908,7 +10908,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": null,
@@ -11376,7 +11376,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0850",
+        " ": "0850",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -11772,7 +11772,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0112",
+        " ": "0112",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -11808,7 +11808,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0260",
+        " ": "0260",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -12312,7 +12312,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*025",
+        " ": "025",
         "Make": "Volvo",
         "Model": "Tractor",
         "TM/B": null,
@@ -12672,7 +12672,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*006",
+        " ": "006",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -14544,7 +14544,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0777",
+        " ": "0777",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -14580,7 +14580,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -14760,7 +14760,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -14796,7 +14796,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -15084,7 +15084,7 @@
         "Outbound inspection": null
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -15300,7 +15300,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0157",
+        " ": "0157",
         "Make": "Kenworth",
         "Model": "Cascadia",
         "TM/B": null,
@@ -15336,7 +15336,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*099",
+        " ": "099",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -15408,7 +15408,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "International",
         "Model": "LT625",
         "TM/B": null,
@@ -16992,7 +16992,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0305",
+        " ": "0305",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -17028,7 +17028,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*021014",
+        " ": "021014",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -17388,7 +17388,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -17460,7 +17460,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": null,
@@ -17604,7 +17604,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*077",
+        " ": "077",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -17820,7 +17820,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0005",
+        " ": "0005",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -17928,7 +17928,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0157",
+        " ": "0157",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -18180,7 +18180,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*070",
+        " ": "070",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -18216,7 +18216,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -18432,7 +18432,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -18576,7 +18576,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*084",
+        " ": "084",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -18648,7 +18648,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -18792,7 +18792,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -18900,7 +18900,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": null,
@@ -19188,7 +19188,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -19368,7 +19368,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*05",
+        " ": "05",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -19908,7 +19908,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*005",
+        " ": "005",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -20052,7 +20052,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -20268,7 +20268,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*078",
+        " ": "078",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": "AT",
@@ -20412,7 +20412,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*09",
+        " ": "09",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -20628,7 +20628,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*093",
+        " ": "093",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -20772,7 +20772,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -20952,7 +20952,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0318",
+        " ": "0318",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -21024,7 +21024,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -21132,7 +21132,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0036",
+        " ": "0036",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -21312,7 +21312,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*025",
+        " ": "025",
         "Make": "Westernstar",
         "Model": "Tractor",
         "TM/B": null,
@@ -21780,7 +21780,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0010",
+        " ": "0010",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -22068,7 +22068,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0101",
+        " ": "0101",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -22104,7 +22104,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -22284,7 +22284,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "International",
         "Model": "LT625",
         "TM/B": "AT",
@@ -22644,7 +22644,7 @@
         "Outbound inspection": null
     },
     {
-        " ": "*0344",
+        " ": "0344",
         "Make": "International",
         "Model": "LT625",
         "TM/B": null,
@@ -22788,7 +22788,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -22824,7 +22824,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0825",
+        " ": "0825",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -23040,7 +23040,7 @@
         "Outbound inspection": null
     },
     {
-        " ": "*03",
+        " ": "03",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -23364,7 +23364,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0031",
+        " ": "0031",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -23724,7 +23724,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0848",
+        " ": "0848",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -24408,7 +24408,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -24624,7 +24624,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0113",
+        " ": "0113",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -25020,7 +25020,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*04",
+        " ": "04",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": "AT",
@@ -25164,7 +25164,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "International",
         "Model": "LT625",
         "TM/B": null,
@@ -25344,7 +25344,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -25668,7 +25668,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -25704,7 +25704,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0012",
+        " ": "0012",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -25956,7 +25956,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*008",
+        " ": "008",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -26784,7 +26784,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*04",
+        " ": "04",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": "AT",
@@ -26928,7 +26928,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": "AT",
@@ -27504,7 +27504,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -27972,7 +27972,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*012",
+        " ": "012",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -28260,7 +28260,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "International",
         "Model": "LT625",
         "TM/B": "AT",
@@ -28368,7 +28368,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*008",
+        " ": "008",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -28656,7 +28656,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0961",
+        " ": "0961",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -29196,7 +29196,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -29412,7 +29412,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": "AT",
@@ -29556,7 +29556,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -29592,7 +29592,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0027",
+        " ": "0027",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -29628,7 +29628,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -29880,7 +29880,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0425",
+        " ": "0425",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -29916,7 +29916,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": "AT",
@@ -29988,7 +29988,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*04",
+        " ": "04",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": "AT",
@@ -30312,7 +30312,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0101",
+        " ": "0101",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -30636,7 +30636,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": null,
@@ -31032,7 +31032,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0260",
+        " ": "0260",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -31140,7 +31140,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0505",
+        " ": "0505",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -31428,7 +31428,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0120",
+        " ": "0120",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -31572,7 +31572,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*009",
+        " ": "009",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -31896,7 +31896,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0560",
+        " ": "0560",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -32076,7 +32076,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*088",
+        " ": "088",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -32364,7 +32364,7 @@
         "Outbound inspection": null
     },
     {
-        " ": "*07",
+        " ": "07",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": "AT",
@@ -32616,7 +32616,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0423",
+        " ": "0423",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -32796,7 +32796,7 @@
         "Outbound inspection": null
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -33084,7 +33084,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*004",
+        " ": "004",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -33120,7 +33120,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -33336,7 +33336,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": "AT",
@@ -33480,7 +33480,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*005",
+        " ": "005",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -33552,7 +33552,7 @@
         "Outbound inspection": null
     },
     {
-        " ": "*012",
+        " ": "012",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -33732,7 +33732,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0103",
+        " ": "0103",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -34020,7 +34020,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0406",
+        " ": "0406",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -34056,7 +34056,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0816",
+        " ": "0816",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -34164,7 +34164,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -34416,7 +34416,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*013",
+        " ": "013",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -34452,7 +34452,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -34524,7 +34524,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*060\n(102)",
+        " ": "060\n(102)",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -34560,7 +34560,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -34704,7 +34704,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -34713,7 +34713,7 @@
         "Notes": null,
         "VIN": "3AKJHHDR5MSMF6447",
         "Year": 2021.0,
-        "Plate": "*0612F6",
+        "Plate": "0612F6",
         "ST": "MD",
         "Whose Truck": "Owner",
         "   Owner": "Honest\nTransportation INC",
@@ -34884,7 +34884,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0013",
+        " ": "0013",
         "Make": "International",
         "Model": "LT625",
         "TM/B": "AT",
@@ -34920,7 +34920,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*040",
+        " ": "040",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -35136,7 +35136,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*077",
+        " ": "077",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -35640,7 +35640,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*05",
+        " ": "05",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -35748,7 +35748,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "International",
         "Model": "LT625",
         "TM/B": "AT",
@@ -35964,7 +35964,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0619",
+        " ": "0619",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -36261,7 +36261,7 @@
         "Notes": null,
         "VIN": "4V4NC9EH8KN214311",
         "Year": 2019.0,
-        "Plate": "*37E40",
+        "Plate": "37E40",
         "ST": "VT",
         "Whose Truck": "Owner",
         "   Owner": "Mohamed Oussaid Nasreddine",
@@ -36288,7 +36288,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0803",
+        " ": "0803",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -36432,7 +36432,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0001",
+        " ": "0001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -36468,7 +36468,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*012",
+        " ": "012",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -36684,7 +36684,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0498",
+        " ": "0498",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -37332,7 +37332,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*038",
+        " ": "038",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -37872,7 +37872,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0423",
+        " ": "0423",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -38016,7 +38016,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": "AT",
@@ -38052,7 +38052,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*07",
+        " ": "07",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": "AT",
@@ -38376,7 +38376,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0031",
+        " ": "0031",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -38448,7 +38448,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*060\n(102)",
+        " ": "060\n(102)",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -38628,7 +38628,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -39348,7 +39348,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*014",
+        " ": "014",
         "Make": "International",
         "Model": "LT625",
         "TM/B": "AT",
@@ -39384,7 +39384,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*015",
+        " ": "015",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -39420,7 +39420,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*016",
+        " ": "016",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -39636,7 +39636,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*009",
+        " ": "009",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -39852,7 +39852,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*021014",
+        " ": "021014",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -39924,7 +39924,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -41112,7 +41112,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": "AT",
@@ -41148,7 +41148,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -41508,7 +41508,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "International",
         "Model": "LT625",
         "TM/B": "AT",
@@ -41904,7 +41904,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -42228,7 +42228,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*060\n(102)",
+        " ": "060\n(102)",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -42336,7 +42336,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -42372,7 +42372,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*018",
+        " ": "018",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -42552,7 +42552,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0057",
+        " ": "0057",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -42624,7 +42624,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -42984,7 +42984,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*041",
+        " ": "041",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -43236,7 +43236,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -43452,7 +43452,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*07",
+        " ": "07",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -43488,7 +43488,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0070",
+        " ": "0070",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -43776,7 +43776,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -43920,7 +43920,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0110",
+        " ": "0110",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -44244,7 +44244,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -44352,7 +44352,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0021",
+        " ": "0021",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "MN",
@@ -44460,7 +44460,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -44712,7 +44712,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*040",
+        " ": "040",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "MN",
@@ -44892,7 +44892,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0747",
+        " ": "0747",
         "Make": "Mack",
         "Model": "Anthem",
         "TM/B": "AT",
@@ -44928,7 +44928,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0605",
+        " ": "0605",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -44964,7 +44964,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*05",
+        " ": "05",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -45180,7 +45180,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0716",
+        " ": "0716",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -45252,7 +45252,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -45720,7 +45720,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*006",
+        " ": "006",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -45864,7 +45864,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*020",
+        " ": "020",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -46260,7 +46260,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -46944,7 +46944,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "MN",
@@ -47160,7 +47160,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*09",
+        " ": "09",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -47448,7 +47448,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*03",
+        " ": "03",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -47592,7 +47592,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "MN",
@@ -48096,7 +48096,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0309",
+        " ": "0309",
         "Make": "International",
         "Model": "LT625",
         "TM/B": "AT",
@@ -48276,7 +48276,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0523",
+        " ": "0523",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -48528,7 +48528,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Kenworth",
         "Model": "T 680",
         "TM/B": "AT",
@@ -48816,7 +48816,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*008",
+        " ": "008",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": "AT",
@@ -49140,7 +49140,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0427",
+        " ": "0427",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": "AT",
@@ -49788,7 +49788,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*059",
+        " ": "059",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -50220,7 +50220,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -50940,7 +50940,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*008",
+        " ": "008",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -51336,7 +51336,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0929",
+        " ": "0929",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -51372,7 +51372,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*021014",
+        " ": "021014",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -51660,7 +51660,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*03",
+        " ": "03",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -52668,7 +52668,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Kenworth",
         "Model": "T 680",
         "TM/B": null,
@@ -53316,7 +53316,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*075",
+        " ": "075",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -53460,7 +53460,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0423",
+        " ": "0423",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -53568,7 +53568,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0330",
+        " ": "0330",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -54612,7 +54612,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*020",
+        " ": "020",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -54828,7 +54828,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -54864,7 +54864,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0320",
+        " ": "0320",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -54900,7 +54900,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0001",
+        " ": "0001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -54936,7 +54936,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -55260,7 +55260,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*04",
+        " ": "04",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -55404,7 +55404,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*04",
+        " ": "04",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": null,
@@ -55548,7 +55548,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0809",
+        " ": "0809",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -55980,7 +55980,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -56196,7 +56196,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -56304,7 +56304,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -56340,7 +56340,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -56448,7 +56448,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0509",
+        " ": "0509",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -56664,7 +56664,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*03",
+        " ": "03",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -57024,7 +57024,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*060",
+        " ": "060",
         "Make": "Volvo",
         "Model": "Volvo",
         "TM/B": null,
@@ -57096,7 +57096,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Kenworth",
         "Model": "T 680",
         "TM/B": null,
@@ -57132,7 +57132,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -57672,7 +57672,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*009",
+        " ": "009",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -57960,7 +57960,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -58680,7 +58680,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*070",
+        " ": "070",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": null,
@@ -59076,7 +59076,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -59148,7 +59148,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0697",
+        " ": "0697",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -59184,7 +59184,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -59508,7 +59508,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -59544,7 +59544,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -59652,7 +59652,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -59832,7 +59832,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*099",
+        " ": "099",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -60300,7 +60300,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -60372,7 +60372,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -60516,7 +60516,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -61128,7 +61128,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*05",
+        " ": "05",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -61344,7 +61344,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -61776,7 +61776,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*059",
+        " ": "059",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -61848,7 +61848,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -61884,7 +61884,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -61920,7 +61920,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001 (1102)",
+        " ": "001 (1102)",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -62388,7 +62388,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -62460,7 +62460,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -62856,7 +62856,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": null,
@@ -63144,7 +63144,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -63288,7 +63288,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*05",
+        " ": "05",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -63432,7 +63432,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0013",
+        " ": "0013",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -63468,7 +63468,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*00113",
+        " ": "00113",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -63504,7 +63504,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*059",
+        " ": "059",
         "Make": "Kenworth",
         "Model": "T 680",
         "TM/B": null,
@@ -63756,7 +63756,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -64008,7 +64008,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*05",
+        " ": "05",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -64296,7 +64296,7 @@
         "Outbound inspection": "No"
     },
     {
-        " ": "*070",
+        " ": "070",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -64512,7 +64512,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*004",
+        " ": "004",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -64584,7 +64584,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*08",
+        " ": "08",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -65880,7 +65880,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0527",
+        " ": "0527",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -66096,7 +66096,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*05",
+        " ": "05",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -66240,7 +66240,7 @@
         "Outbound inspection": "Yes"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "International",
         "Model": "LT625",
         "TM/B": null,
@@ -67392,7 +67392,7 @@
         "Outbound inspection": "Yes"
     },
     {
-        " ": "*022",
+        " ": "022",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -67572,7 +67572,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -68004,7 +68004,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -68328,7 +68328,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*003",
+        " ": "003",
         "Make": "Kenworth",
         "Model": 579,
         "TM/B": null,
@@ -68364,7 +68364,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*007",
+        " ": "007",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -68400,7 +68400,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "International",
         "Model": "LT625",
         "TM/B": null,
@@ -69480,7 +69480,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0605",
+        " ": "0605",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -69552,7 +69552,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -69804,7 +69804,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0872",
+        " ": "0872",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -69876,7 +69876,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*001",
+        " ": "001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -69984,7 +69984,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -70992,7 +70992,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Kenworth",
         "Model": "T-680",
         "TM/B": null,
@@ -71460,7 +71460,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0720",
+        " ": "0720",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -71892,7 +71892,7 @@
         "Outbound inspection": "Yes"
     },
     {
-        " ": "*002",
+        " ": "002",
         "Make": "International",
         "Model": "LT625",
         "TM/B": null,
@@ -72072,7 +72072,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0782",
+        " ": "0782",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -72792,7 +72792,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*041",
+        " ": "041",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -72900,7 +72900,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0083",
+        " ": "0083",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -72936,7 +72936,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*02",
+        " ": "02",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -73044,7 +73044,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0714",
+        " ": "0714",
         "Make": "Kenworth",
         "Model": "T680",
         "TM/B": null,
@@ -73080,7 +73080,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0975",
+        " ": "0975",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -73548,7 +73548,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "International",
         "Model": "LT625",
         "TM/B": null,
@@ -74484,7 +74484,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*09",
+        " ": "09",
         "Make": "International",
         "Model": "LT625",
         "TM/B": null,
@@ -74916,7 +74916,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*005",
+        " ": "005",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -75096,7 +75096,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0012",
+        " ": "0012",
         "Make": "Volvo",
         "Model": "VNL",
         "TM/B": null,
@@ -75268,7 +75268,7 @@
         "In Service date": "2021-03-05T00:00:00",
         "In Service odo": null,
         "Out Service date": "2022-03-24T00:00:00",
-        "Out Service odo": "*424,137",
+        "Out Service odo": "424,137",
         "Returned location": "15W580 N Frontage Rd , Burr Ridge, IL 60527, United States",
         "Registration.1": "Yes",
         "Annual inspection": "Yes",
@@ -75304,7 +75304,7 @@
         "In Service date": "2021-10-01T00:00:00",
         "In Service odo": null,
         "Out Service date": "2022-03-30T00:00:00",
-        "Out Service odo": "*457,483",
+        "Out Service odo": "457,483",
         "Returned location": "15W580 N Frontage Rd , Burr Ridge, IL 60527, United States",
         "Registration.1": "Yes",
         "Annual inspection": "Yes",
@@ -75340,7 +75340,7 @@
         "In Service date": "2021-01-15T00:00:00",
         "In Service odo": null,
         "Out Service date": "2022-03-30T00:00:00",
-        "Out Service odo": "*455,780",
+        "Out Service odo": "455,780",
         "Returned location": "15W580 N Frontage Rd , Burr Ridge, IL 60527, United States",
         "Registration.1": "Yes",
         "Annual inspection": "Yes",
@@ -76068,7 +76068,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*0001",
+        " ": "0001",
         "Make": "Freightliner",
         "Model": "Cascadia",
         "TM/B": null,
@@ -77868,7 +77868,7 @@
         "Outbound inspection": "No need"
     },
     {
-        " ": "*01",
+        " ": "01",
         "Make": "Peterbilt",
         "Model": 579,
         "TM/B": null,
