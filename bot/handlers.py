@@ -47,17 +47,32 @@ def main_handlers(bot):
     @bot.message_handler(commands=["truck"])
     def handle_truck_command(message):
         chat = message.chat
-        chat_id_str = str(chat.id)
+        chat_id = chat.id
 
         if chat.type in ["group", "supergroup"]:
-            if not AllowedGroup.objects.filter(group_id=chat_id_str).exists():
+            allowed_ids = list(AllowedGroup.objects.values_list("group_id", flat=True))
+
+            chat_username = chat.username  
+            chat_invite_link = getattr(chat, "invite_link", None) 
+
+            if chat_username and chat_username in allowed_ids:
+                pass 
+            elif chat_invite_link and chat_invite_link in allowed_ids:
+                pass 
+            else:
+                bot.send_message(
+                    chat_id,
+                    "⛔ *Ushbu guruhda bot ishlashi taqiqlangan.*\n"
+                    "Iltimos, botdan foydalanish uchun *admin bilan bog‘laning.*",
+                    parse_mode="Markdown"
+                )
                 return 
 
         try:
             truck_number = message.text.split(" ", 1)[1].strip()
         except IndexError:
-            m = bot.send_message(chat.id, "❗ Iltimos, truck raqamini kiriting: `/truck TRK-245`", parse_mode="Markdown")
-            user_last_message[chat.id] = [message.message_id, m.message_id]
+            m = bot.send_message(chat_id, "❗ Truck raqamini `/truck 245` tarzida kiriting.", parse_mode="Markdown")
+            user_last_message[chat_id] = [message.message_id, m.message_id]
             return
 
         TelegramUser.objects.update_or_create(
