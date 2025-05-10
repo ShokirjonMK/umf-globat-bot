@@ -43,55 +43,34 @@ class OrientationType(models.Model):
     def __str__(self):
         return self.name
 
+class TruckStatus(models.Model):
+    title = models.CharField(max_length=50, unique=True, help_text="Holat nomi (masalan: Enroute, In Maintenance, Active)")
+    
+    def __str__(self):
+        return self.title
+
 
 class Truck(models.Model):
-    """
-    Truck (yuk mashinasi) haqida asosiy ma'lumotlar.
-    """
-    number = models.CharField(
-        max_length=20,
-        unique=True,
-        help_text="Truck ichki raqami (masalan: TRK-245)"
-    )
-    plate_number = models.CharField(
-        max_length=20,
-        blank=True,
-        null=True,
-        help_text="Davlat raqami (masalan: TX 98325 AB)"
-    )
-    vin_number = models.CharField(
-        max_length=50,
-        blank=True,
-        null=True,
-        help_text="VIN (Vehicle Identification Number)"
-    )
-    make = models.CharField(
-        max_length=50,
-        blank=True,
-        null=True,
-        help_text="Ishlab chiqaruvchi (masalan: Volvo)"
-    )
-    model = models.CharField(
-        max_length=50,
-        blank=True,
-        null=True,
-        help_text="Model nomi (masalan: VNL)"
-    )
-    year = models.PositiveIntegerField(
-        blank=True,
-        null=True,
-        help_text="Yil (masalan: 2020)"
-    )
-    status = models.CharField(
-        max_length=20,
-        choices=[
-            ('active', 'Active'),
-            ('inactive', 'Inactive'),
-            ('maintenance', 'Maintenance')
-        ],
-        default='active',
-        help_text="Truck holati: faol, faol emas yoki texnik xizmatda"
-    )
+    number = models.CharField(max_length=20, unique=True, help_text="Truck ichki raqami (masalan: TRK-245)")
+    plate_number = models.CharField(max_length=20, blank=True, null=True, help_text="Davlat raqami (masalan: TX 98325 AB)")
+    vin_number = models.CharField(max_length=50, blank=True, null=True, help_text="VIN (Vehicle Identification Number)")
+    
+    make = models.CharField(max_length=50, blank=True, null=True)
+    model = models.CharField(max_length=50, blank=True, null=True)
+    tm_or_b = models.CharField(max_length=10, blank=True, null=True, help_text="TM/B (masalan: AT, MT)")
+    color = models.CharField(max_length=30, blank=True, null=True)
+    
+    status = models.ForeignKey(TruckStatus, on_delete=models.SET_NULL, null=True, blank=True, help_text="Truck status (masalan: Enroute)")
+    notes = models.TextField(blank=True, null=True)
+    
+    year = models.PositiveIntegerField(blank=True, null=True)
+    st = models.CharField(max_length=5, blank=True, null=True, help_text="ST (masalan: TX, IL)")
+    whose_truck = models.CharField(max_length=50, blank=True, null=True, help_text="Whose Truck (masalan: Owner)")
+    
+    owner_name = models.CharField(max_length=100, blank=True, null=True)
+    company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True, blank=True)
+    driver_name = models.CharField(max_length=100, blank=True, null=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
