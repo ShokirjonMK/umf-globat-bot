@@ -317,8 +317,9 @@ def main_handlers(bot):
                 start = page * batch_size
                 end = start + batch_size
                 chunk = truck_numbers[start:end]
-                text = f"🚚 *{status.title}* statusidagi trucklar (sahifa {page+1}/{total_pages}):"
-                text += "".join(f"🔢 `{num}`" for num in chunk)
+                text = f"🚚 {status.title}* statusidagi trucklar (sahifa {page+1}/{total_pages}):\n\n"
+                text += "\n".join(f"🚚`{num}`" for num in chunk)
+
 
                 markup = types.InlineKeyboardMarkup()
                 buttons = []
@@ -340,7 +341,7 @@ def main_handlers(bot):
                 bot.answer_callback_query(call.id, f"❌ Sahifa yuklashda xatolik: {str(e)}", show_alert=True)
             return
         try:
-            
+
             _, _, status_id = call.data.split(":")
             status = TruckStatus.objects.get(id=status_id)
             trucks = Truck.objects.filter(status=status)
