@@ -304,32 +304,41 @@ def main_handlers(bot):
 
     @bot.callback_query_handler(func=lambda call: call.data.startswith("view:status:") or call.data.startswith("page:"))
     def view_trucks_by_status(call):
-        if call.data.startswith("page:"):
-            try:
+        try:
+            if call.data.startswith("view:status:"):
+                _, _, status_id = call.data.split(":")
+                page = 0
+            else:
                 _, status_id, page = call.data.split(":")
-                status = TruckStatus.objects.get(id=status_id)
-                trucks = Truck.objects.filter(status=status)
-                truck_numbers = list(trucks.values_list('number', flat=True))
-
-                batch_size = 10
-                total_pages = (len(truck_numbers) + batch_size - 1) // batch_size
                 page = int(page)
-                start = page * batch_size
-                end = start + batch_size
-                chunk = truck_numbers[start:end]
-                text = f"🚚 {status.title}* statusidagi trucklar (sahifa {page+1}/{total_pages}):\n\n"
-                text += "\n".join(f"🚚`{num}`" for num in chunk)
 
+            status = TruckStatus.objects.get(id=status_id)
+            trucks = Truck.objects.filter(status=status)
+            truck_numbers = list(trucks.values_list('number', flat=True))
 
-                markup = types.InlineKeyboardMarkup()
-                buttons = []
-                if page > 0:
-                    buttons.append(types.InlineKeyboardButton("⬅️ Oldingi", callback_data=f"page:{status.id}:{page-1}"))
-                if page < total_pages - 1:
-                    buttons.append(types.InlineKeyboardButton("Keyingi ➡️", callback_data=f"page:{status.id}:{page+1}"))
-                if buttons:
-                    markup.add(*buttons)
+            batch_size = 10
+            total_pages = (len(truck_numbers) + batch_size - 1) // batch_size
+            total_count = len(truck_numbers)
 
+            start = page * batch_size
+            end = start + batch_size
+            chunk = truck_numbers[start:end]
+
+            text = f"*{status.title}* statusidagi trucklar (sahifa {page + 1}/{total_pages}) - jami: {total_count} ta\n\n"
+            text += "\n".join(f"`{num}`" for num in chunk)
+
+            markup = types.InlineKeyboardMarkup()
+            buttons = []
+            if page > 0:
+                buttons.append(types.InlineKeyboardButton("⬅️ Oldingi", callback_data=f"page:{status.id}:{page - 1}"))
+            if page < total_pages - 1:
+                buttons.append(types.InlineKeyboardButton("Keyingi ➡️", callback_data=f"page:{status.id}:{page + 1}"))
+            if buttons:
+                markup.add(*buttons)
+
+            if call.data.startswith("view:status:"):
+                bot.send_message(call.message.chat.id, text, parse_mode="Markdown", reply_markup=markup)
+            else:
                 bot.edit_message_text(
                     chat_id=call.message.chat.id,
                     message_id=call.message.message_id,
@@ -337,46 +346,8 @@ def main_handlers(bot):
                     reply_markup=markup,
                     parse_mode="Markdown"
                 )
-            except Exception as e:
-                bot.answer_callback_query(call.id, f"❌ Sahifa yuklashda xatolik: {str(e)}", show_alert=True)
-            return
-        try:
-
-            _, _, status_id = call.data.split(":")
-            status = TruckStatus.objects.get(id=status_id)
-            trucks = Truck.objects.filter(status=status)
-
-            if not trucks.exists():
-                bot.answer_callback_query(call.id, f"❗ '{status.title}' statusida truck yo‘q.", show_alert=True)
-                return
-
-            truck_numbers = list(trucks.values_list('number', flat=True))
-            batch_size = 10
-            total_pages = (len(truck_numbers) + batch_size - 1) // batch_size
-
-            def send_page(page):
-                start = page * batch_size
-                end = start + batch_size
-                chunk = truck_numbers[start:end]
-                text = f"🚚 *{status.title}* statusidagi trucklar (sahifa {page+1}/{total_pages}):"
-                text += "".join(f"🔢 `{num}`" for num in chunk)
-
-                markup = types.InlineKeyboardMarkup()
-                buttons = []
-                if page > 0:
-                    buttons.append(types.InlineKeyboardButton("⬅️ Oldingi", callback_data=f"page:{status.id}:{page-1}"))
-                if page < total_pages - 1:
-                    buttons.append(types.InlineKeyboardButton("Keyingi ➡️", callback_data=f"page:{status.id}:{page+1}"))
-                if buttons:
-                    markup.add(*buttons)
-                bot.send_message(call.message.chat.id, text, parse_mode="Markdown", reply_markup=markup)
-
-            send_page(0)
         except Exception as e:
             bot.answer_callback_query(call.id, f"❌ Xatolik: {str(e)}", show_alert=True)
-        except Exception as e:
-            bot.answer_callback_query(call.id, f"❌ Xatolik: {str(e)}", show_alert=True)
-            bot.answer_callback_query(call.id, "❌ Truck statusni ko‘rsatishda xatolik yuz berdi.", show_alert=True)
 
     @bot.message_handler(commands=["truck"])
     def handle_truck_command(message):
