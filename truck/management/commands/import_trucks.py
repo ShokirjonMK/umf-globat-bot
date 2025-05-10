@@ -10,6 +10,12 @@ class Command(BaseCommand):
         url = "https://docs.google.com/spreadsheets/d/1w1dvleB--83DaNHMoyp6dswHtwgWL2yqZKe6hzl9sOo/export?format=csv&gid=1603469063"
         df = pd.read_csv(url)
 
+        def safe_date(val):
+            try:
+                return pd.to_datetime(val).date() if pd.notna(val) and val else None
+            except Exception:
+                return None
+
         for _, row in df.iterrows():
             truck_number = str(row.get("#")).strip()
             make = row.get("Make")
@@ -29,10 +35,9 @@ class Command(BaseCommand):
             phone = row.get("Phone #")
 
             # Get or create truck status
+            status = None
             if status_title:
                 status, _ = TruckStatus.objects.get_or_create(title=status_title)
-            else:
-                status = None
 
             company, _ = Company.objects.get_or_create(title=company_title or "Unknown")
 
@@ -58,7 +63,7 @@ class Command(BaseCommand):
 
             # Create Driver
             reg_date = row.get("Registration")
-            date_obj = pd.to_datetime(reg_date).date() if pd.notna(reg_date) else datetime.now().date()
+            date_obj = safe_date(reg_date) or datetime.now().date()
             driver_type = "owner" if str(whose).lower() == "owner" else "company"
 
             if driver_name:
@@ -74,14 +79,15 @@ class Command(BaseCommand):
                 )
 
             # Create TruckInsurance
+            physical_exp = safe_date(row.get("Physical Exp"))
             TruckInsurance.objects.update_or_create(
                 truck=truck,
                 defaults={
-                    "proof_of_ownership": row.get("PROOF OF OWNERSHIP") == "YES",
-                    "safety_carrier": row.get("SAFETY CARRIER") == "YES",
-                    "liability_and_cargo": row.get("Liability and Cargo Insurance") == "Yes",
-                    "physical_damage": row.get("Physical Damage Ins") == "Yes",
-                    "physical_exp": pd.to_datetime(row.get("Physical Exp"), errors='coerce').date() if pd.notna(row.get("Physical Exp")) else None,
+                    "proof_of_ownership": str(row.get("PROOF OF OWNERSHIP")).strip().upper() == "YES",
+                    "safety_carrier": str(row.get("SAFETY CARRIER")).strip().upper() == "YES",
+                    "liability_and_cargo": str(row.get("Liability and Cargo Insurance")).strip().upper() == "YES",
+                    "physical_damage": str(row.get("Physical Damage Ins")).strip().upper() == "YES",
+                    "physical_exp": physical_exp,
                     "link": row.get("Link")
                 }
             )
