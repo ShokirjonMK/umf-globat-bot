@@ -23,6 +23,14 @@ def main_handlers(bot):
                 pass
         user_last_message[chat_id] = []
 
+    def get_orientation_lines(orientations):
+        lines = []
+        for orientation in orientations:
+            status_icon = "✅" if orientation.status == "done" else "❌"
+            updated = orientation.updated_at.strftime("%Y-%m-%d %H:%M")
+            lines.append(f"{orientation.orientation_type.name}: {status_icon} `{orientation.status}`\n_🕒 {updated}_")
+        return "\n".join(lines)
+
     @bot.message_handler(commands=["start"])
     def handle_start(message):
         tg_user = message.from_user
@@ -52,26 +60,7 @@ def main_handlers(bot):
 
     @bot.message_handler(commands=["truck"])
     def handle_truck_command(message):
-        chat = message.chat
-        chat_id = chat.id
-        chat_id_str = str(chat_id)
-
-        if chat.type in ["group", "supergroup"]:
-            allowed_ids = list(AllowedGroup.objects.values_list("group_id", flat=True))
-            chat_username = chat.username
-            chat_invite_link = getattr(chat, "invite_link", None)
-
-            if not (
-                chat_id_str in allowed_ids or
-                (chat_username and chat_username in allowed_ids) or
-                (chat_invite_link and chat_invite_link in allowed_ids)
-            ):
-                bot.send_message(
-                    chat_id,
-                    "⛔ *Ushbu guruhda bot ishlashi taqiqlangan.*\nIltimos, botdan foydalanish uchun *admin bilan bog‘laning.*",
-                    parse_mode="Markdown"
-                )
-                return
+        chat_id = message.chat.id
 
         try:
             truck_number = message.text.split(" ", 1)[1].strip()
@@ -95,7 +84,73 @@ def main_handlers(bot):
             }
         )
 
-        process_truck_number(message, truck_number)
+        delete_last(chat_id)
+
+        trucks = Truck.objects.select_related('status', 'company').filter(number=truck_number).order_by('-created_at')
+
+        if not trucks.exists():
+            m = bot.send_message(chat_id, "❌ Bunday truck topilmadi.")
+            user_last_message[chat_id] = [message.message_id, m.message_id]
+            return
+
+        truck = trucks.first()
+        driver = Driver.objects.filter(truck=truck).order_by('-created_at').first()
+        company_name = driver.company.title if driver and driver.company else "—"
+
+        driver_info = (
+            f"👤 Driver: {driver.full_name}\n"
+            f"🗓 Sana: {driver.date}\n"
+            f"🚦 Mode: `{driver.mode}`\n"
+            f"🔁 Type: `{driver.driver_type}`\n"
+            f"✅ Confirmation: {driver.confirmation or '—'}\n"
+            f"✍️ Sign: {driver.sign or '—'}\n"
+            f"📄 DocuSign: {driver.docusign or '—'}\n"
+        ) if driver else "👤 Driver: —\n"
+
+        truck_info = (
+            f"🚛 *Truck:* `{truck.number}`\n"
+            f"🏢 *Company:* {company_name}\n"
+            f"🔧 *Make/Model:* {truck.make or '—'} / {truck.model or '—'}\n"
+            f"🎨 *Color:* {truck.color or '—'}\n"
+            f"🔑 *VIN:* `{truck.vin_number or '—'}`\n"
+            f"🔹 *Plate:* `{truck.plate_number or '—'}`\n"
+            f"🗕 *Year:* {truck.year or '—'}\n"
+            f"🌐 *State:* {truck.st or '—'}\n"
+            f"👥 *Whose Truck:* {truck.whose_truck or '—'}\n"
+            f"👨🏻‍✈️ *Owner:* {truck.owner_name or '—'}\n"
+            f"📍 *Driver:* {truck.driver_name or '—'}\n"
+            f"📄 *Notes:* {truck.notes or '—'}\n"
+            f"🚲 *Status:* {truck.status.title if truck.status else '—'}\n\n"
+        )
+
+        orientations = TruckOrientation.objects.filter(truck=truck).select_related('orientation_type')
+        existing_type_ids = orientations.values_list('orientation_type_id', flat=True)
+        missing_types = OrientationType.objects.exclude(id__in=existing_type_ids)
+
+        for otype in missing_types:
+            TruckOrientation.objects.create(
+                truck=truck,
+                orientation_type=otype,
+                status=TruckOrientation.Status.NOT_DONE
+            )
+
+        orientations = TruckOrientation.objects.filter(truck=truck).select_related('orientation_type')
+        orientation_text = "🗞 *Orientation statuslari:*\n\n" + get_orientation_lines(orientations)
+
+        markup = types.InlineKeyboardMarkup(row_width=1)
+        markup.add(
+            types.InlineKeyboardButton("✏️ Orientation holatini o‘zgartirish", callback_data=f"edit:type:{truck.id}"),
+            types.InlineKeyboardButton("🚜 Truck statusni o‘zgartirish", callback_data=f"edit:status:{truck.id}")
+        )
+        for orientation in orientations:
+            markup.add(types.InlineKeyboardButton(
+                text=f"{orientation.orientation_type.name} - EDIT",
+                callback_data=f"edit:{orientation.id}"
+            ))
+
+        text = truck_info + driver_info + orientation_text
+        m = bot.send_message(chat_id, text, parse_mode="Markdown", reply_markup=markup)
+        user_last_message[chat_id].append(m.message_id)
 
     def process_truck_number(message, truck_number):
         chat_id = message.chat.id
