@@ -104,12 +104,21 @@ def main_handlers(bot):
 
         delete_last(chat_id)
 
-        try:
-            truck = Truck.objects.select_related('status', 'company').get(number=truck_number)
-        except Truck.DoesNotExist:
+        trucks = Truck.objects.select_related('status', 'company').filter(number=truck_number).order_by('-created_at')
+
+        if not trucks.exists():
             m = bot.send_message(chat_id, "❌ Bunday truck topilmadi.")
             user_last_message[chat_id] = [message.message_id, m.message_id]
             return
+
+        if trucks.count() > 1:
+            note = f"ℹ️ *Diqqat!* `{truck_number}` raqamli {trucks.count()} ta truck mavjud. Faqat eng so‘nggisi ko‘rsatilmoqda."
+            warn_msg = bot.send_message(chat_id, note, parse_mode="Markdown")
+            user_last_message[chat_id] = [message.message_id, warn_msg.message_id]
+        else:
+            user_last_message[chat_id] = [message.message_id]
+
+        truck = trucks.first()
 
         driver = Driver.objects.filter(truck=truck).order_by('-created_at').first()
         company_name = driver.company.title if driver and driver.company else "—"
@@ -155,6 +164,10 @@ def main_handlers(bot):
         orientation_text = "🧾 *Orientation statuslari:*\n\n"
         markup = types.InlineKeyboardMarkup()
 
+        if user_id in ADMIN_IDS:
+            markup.add(types.InlineKeyboardButton("✏️ Orientation holatini o‘zgartirish", callback_data=f"edit:type:{truck.id}"))
+            markup.add(types.InlineKeyboardButton("🚛 Truck statusni o‘zgartirish", callback_data=f"edit:status:{truck.id}"))
+
         for orientation in orientations:
             status_icon = "✅" if orientation.status == "done" else "❌"
             updated = orientation.updated_at.strftime("%Y-%m-%d %H:%M")
@@ -169,7 +182,8 @@ def main_handlers(bot):
         text = truck_info + driver_info + orientation_text
 
         m = bot.send_message(chat_id, text, parse_mode="Markdown", reply_markup=markup if markup.keyboard else None)
-        user_last_message[chat_id] = [message.message_id, m.message_id]
+        user_last_message[chat_id].append(m.message_id)
+
 
     @bot.callback_query_handler(func=lambda call: call.data.startswith("edit"))
     def handle_edit_callbacks(call):
