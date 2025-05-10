@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group, User
 from .models import (
     TelegramUser, Company, OrientationType,
-    Truck, TruckOrientation, Driver
+    Truck, TruckOrientation, Driver, AllowedGroup
 )
 from django_celery_beat.models import (
     ClockedSchedule,
@@ -46,6 +46,11 @@ class OrientationTypeAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 
+
+@admin.register(AllowedGroup)
+class AllowedGroupAdmin(admin.ModelAdmin):
+    list_display = ('group_id',)
+    search_fields = ('group_id',)
 
 @admin.register(Truck)
 class TruckAdmin(admin.ModelAdmin):

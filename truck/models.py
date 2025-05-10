@@ -1,6 +1,13 @@
 from django.db import models
 
 
+class AllowedGroup(models.Model):
+    group_id = models.CharField(max_length=100, unique=True, help_text="Group id")
+
+    def __str__(self):
+        return self.group_id
+    
+
 class TelegramUser(models.Model):
     telegram_id = models.BigIntegerField(unique=True)
     first_name = models.CharField(max_length=100, blank=True, null=True)

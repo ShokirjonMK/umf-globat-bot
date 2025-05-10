@@ -8,7 +8,7 @@ django.setup()
 
 from telebot import  types
 from types import SimpleNamespace
-from truck.models import Truck, TruckOrientation, OrientationType, TelegramUser, Driver
+from truck.models import AllowedGroup, Truck, TruckOrientation, OrientationType, TelegramUser, Driver
 
 ADMIN_IDS = [1784374540, 644442895]
 user_last_message = {}
@@ -46,11 +46,18 @@ def main_handlers(bot):
 
     @bot.message_handler(commands=["truck"])
     def handle_truck_command(message):
+        chat = message.chat
+        chat_id_str = str(chat.id)
+
+        if chat.type in ["group", "supergroup"]:
+            if not AllowedGroup.objects.filter(group_id=chat_id_str).exists():
+                return 
+
         try:
             truck_number = message.text.split(" ", 1)[1].strip()
         except IndexError:
-            m = bot.send_message(message.chat.id, "❗ Iltimos, truck raqamini kiriting: `/truck TRK-245`", parse_mode="Markdown")
-            user_last_message[message.chat.id] = [message.message_id, m.message_id]
+            m = bot.send_message(chat.id, "❗ Iltimos, truck raqamini kiriting: `/truck TRK-245`", parse_mode="Markdown")
+            user_last_message[chat.id] = [message.message_id, m.message_id]
             return
 
         TelegramUser.objects.update_or_create(
@@ -65,6 +72,7 @@ def main_handlers(bot):
         )
 
         process_truck_number(message, truck_number)
+
 
     def process_truck_number(message, truck_number):
         chat_id = message.chat.id
