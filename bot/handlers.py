@@ -135,7 +135,7 @@ def main_handlers(bot):
             f"🗕 *Year:* {truck.year or '—'}\n"
             f"🌐 *State:* {truck.st or '—'}\n"
             f"👥 *Whose Truck:* {truck.whose_truck or '—'}\n"
-            f"📌 *Owner:* {truck.owner_name or '—'}\n"
+            f"👨🏻‍✈️ *Owner:* {truck.owner_name or '—'}\n"
             f"📍 *Driver:* {truck.driver_name or '—'}\n"
             f"📄 *Notes:* {truck.notes or '—'}\n"
             f"🚲 *Status:* {truck.status.title if truck.status else '—'}\n\n"
@@ -291,3 +291,80 @@ def main_handlers(bot):
 
         except Exception:
             bot.answer_callback_query(call.id, "❌ O‘zgartirishda xatolik yuz berdi.")
+
+    
+    @bot.message_handler(commands=["status"])
+    def handle_status_command(message):
+        markup = types.InlineKeyboardMarkup(row_width=2)
+        for status in TruckStatus.objects.all():
+            markup.add(types.InlineKeyboardButton(
+                text=status.title,
+                callback_data=f"view:status:{status.id}"
+            ))
+        bot.send_message(message.chat.id, "🚦 Qaysi truck statusni ko‘rmoqchisiz?", reply_markup=markup)
+
+    @bot.callback_query_handler(func=lambda call: call.data.startswith("view:status:"))
+    def view_trucks_by_status(call):
+        try:
+            _, _, status_id = call.data.split(":")
+            status = TruckStatus.objects.get(id=status_id)
+            trucks = Truck.objects.filter(status=status)
+
+            if not trucks.exists():
+                bot.answer_callback_query(call.id, f"❗ '{status.title}' statusida truck yo‘q.", show_alert=True)
+                return
+
+            text = f"🚚 *{status.title}* statusidagi trucklar: {trucks.count()} ta\n\n"
+            for truck in trucks:
+                text += f"🔢 `{truck.number}`\n"
+
+            bot.send_message(call.message.chat.id, text, parse_mode="Markdown")
+        except Exception:
+            bot.answer_callback_query(call.id, "❌ Truck statusni ko‘rsatishda xatolik yuz berdi.", show_alert=True)
+
+    @bot.message_handler(commands=["truck"])
+    def handle_truck_command(message):
+        chat = message.chat
+        chat_id = chat.id
+        chat_id_str = str(chat_id)
+
+        if chat.type in ["group", "supergroup"]:
+            allowed_ids = list(AllowedGroup.objects.values_list("group_id", flat=True))
+            chat_username = chat.username
+            chat_invite_link = getattr(chat, "invite_link", None)
+
+            if not (
+                chat_id_str in allowed_ids or
+                (chat_username and chat_username in allowed_ids) or
+                (chat_invite_link and chat_invite_link in allowed_ids)
+            ):
+                bot.send_message(
+                    chat_id,
+                    "⛔ *Ushbu guruhda bot ishlashi taqiqlangan.*\nIltimos, botdan foydalanish uchun *admin bilan bog‘laning.*",
+                    parse_mode="Markdown"
+                )
+                return
+
+        try:
+            truck_number = message.text.split(" ", 1)[1].strip()
+        except IndexError:
+            m = bot.send_message(
+                chat_id,
+                "❗ Truck raqamini `/truck TRK-245` tarzida kiriting.",
+                parse_mode="Markdown"
+            )
+            user_last_message[chat_id] = [message.message_id, m.message_id]
+            return
+
+        TelegramUser.objects.update_or_create(
+            telegram_id=message.from_user.id,
+            defaults={
+                'first_name': message.from_user.first_name,
+                'last_name': message.from_user.last_name,
+                'username': message.from_user.username,
+                'language_code': message.from_user.language_code,
+                'is_bot': message.from_user.is_bot
+            }
+        )
+
+        process_truck_number(message, truck_number)
