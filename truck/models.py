@@ -122,7 +122,7 @@ class Driver(models.Model):
     full_name = models.CharField(max_length=100, help_text="Haydovchining to‘liq ismi")
     date = models.DateField(help_text="Kiritilgan sana")
     mode = models.CharField(max_length=10, choices=MODE_CHOICES, default='offline', help_text="Driverning hozirgi holati")
-    driver_type = models.CharField(max_length=10, choices=DRIVER_TYPE_CHOICES, blank=True, null=True, help_text="Driver turi")
+    driver_type = models.CharField(max_length=50, choices=DRIVER_TYPE_CHOICES, blank=True, null=True, help_text="Driver turi")
     company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True, blank=True)
     truck = models.ForeignKey(Truck, on_delete=models.SET_NULL, null=True, blank=True)
     confirmation = models.CharField(max_length=100, blank=True, null=True, help_text="Confirmation status")
