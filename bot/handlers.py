@@ -313,11 +313,16 @@ def main_handlers(bot):
                 bot.answer_callback_query(call.id, f"❗ '{status.title}' statusida truck yo‘q.", show_alert=True)
                 return
 
-            text = f"🚚 *{status.title}* statusidagi trucklar: {trucks.count()} ta"
-            for truck in trucks:
-                text += f"🔢 `{truck.number}`"
+            truck_numbers = list(trucks.values_list('number', flat=True))
+            batch_size = 50
+            total = len(truck_numbers)
 
-            bot.send_message(call.message.chat.id, text, parse_mode="Markdown")
+            bot.send_message(call.message.chat.id, f"🚚 *{status.title}* statusidagi trucklar: {total} ta", parse_mode="Markdown")
+
+            for i in range(0, total, batch_size):
+                chunk = truck_numbers[i:i+batch_size]
+                text = "".join(f"🔢 `{num}`" for num in chunk)
+                bot.send_message(call.message.chat.id, text, parse_mode="Markdown")
         except Exception as e:
             bot.answer_callback_query(call.id, f"❌ Xatolik: {str(e)}", show_alert=True)
             bot.answer_callback_query(call.id, "❌ Truck statusni ko‘rsatishda xatolik yuz berdi.", show_alert=True)
