@@ -41,24 +41,38 @@ def main_handlers(bot):
         )
 
         delete_last(message.chat.id)
-        m = bot.send_message(message.chat.id, "🔍 Truck raqamini kiriting (masalan: /truck TRK-245):")
+        m = bot.send_message(message.chat.id, "🔍 Truck raqamini kiriting (masalan: /truck 245):")
         user_last_message[message.chat.id] = [message.message_id, m.message_id]
+
+    
+    @bot.message_handler(commands=["getid"])
+    def get_chat_id(message):
+        bot.send_message(
+            message.chat.id,
+            f"🆔 Chat ID: `{message.chat.id}`\n👥 Type: {message.chat.type}",
+            parse_mode="Markdown"
+        )
+
+
 
     @bot.message_handler(commands=["truck"])
     def handle_truck_command(message):
         chat = message.chat
         chat_id = chat.id
+        chat_id_str = str(chat_id)
 
         if chat.type in ["group", "supergroup"]:
             allowed_ids = list(AllowedGroup.objects.values_list("group_id", flat=True))
 
-            chat_username = chat.username  
-            chat_invite_link = getattr(chat, "invite_link", None) 
+            chat_username = chat.username 
+            chat_invite_link = getattr(chat, "invite_link", None)
 
-            if chat_username and chat_username in allowed_ids:
-                pass 
-            elif chat_invite_link and chat_invite_link in allowed_ids:
-                pass 
+            if (
+                chat_id_str in allowed_ids or
+                (chat_username and chat_username in allowed_ids) or
+                (chat_invite_link and chat_invite_link in allowed_ids)
+            ):
+                pass  
             else:
                 bot.send_message(
                     chat_id,
@@ -66,12 +80,16 @@ def main_handlers(bot):
                     "Iltimos, botdan foydalanish uchun *admin bilan bog‘laning.*",
                     parse_mode="Markdown"
                 )
-                return 
+                return
 
         try:
             truck_number = message.text.split(" ", 1)[1].strip()
         except IndexError:
-            m = bot.send_message(chat_id, "❗ Truck raqamini `/truck 245` tarzida kiriting.", parse_mode="Markdown")
+            m = bot.send_message(
+                chat_id,
+                "❗ Truck raqamini `/truck TRK-245` tarzida kiriting.",
+                parse_mode="Markdown"
+            )
             user_last_message[chat_id] = [message.message_id, m.message_id]
             return
 
@@ -87,6 +105,7 @@ def main_handlers(bot):
         )
 
         process_truck_number(message, truck_number)
+
 
 
     def process_truck_number(message, truck_number):
