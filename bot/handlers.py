@@ -292,7 +292,6 @@ def main_handlers(bot):
         except Exception:
             bot.answer_callback_query(call.id, "❌ O‘zgartirishda xatolik yuz berdi.")
 
-    
     @bot.message_handler(commands=["status"])
     def handle_status_command(message):
         markup = types.InlineKeyboardMarkup(row_width=2)
@@ -314,12 +313,13 @@ def main_handlers(bot):
                 bot.answer_callback_query(call.id, f"❗ '{status.title}' statusida truck yo‘q.", show_alert=True)
                 return
 
-            text = f"🚚 *{status.title}* statusidagi trucklar: {trucks.count()} ta\n\n"
+            text = f"🚚 *{status.title}* statusidagi trucklar: {trucks.count()} ta"
             for truck in trucks:
-                text += f"🔢 `{truck.number}`\n"
+                text += f"🔢 `{truck.number}`"
 
             bot.send_message(call.message.chat.id, text, parse_mode="Markdown")
-        except Exception:
+        except Exception as e:
+            bot.answer_callback_query(call.id, f"❌ Xatolik: {str(e)}", show_alert=True)
             bot.answer_callback_query(call.id, "❌ Truck statusni ko‘rsatishda xatolik yuz berdi.", show_alert=True)
 
     @bot.message_handler(commands=["truck"])
