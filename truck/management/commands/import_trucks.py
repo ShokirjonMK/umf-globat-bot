@@ -3,12 +3,18 @@ from django.core.management.base import BaseCommand
 from datetime import datetime
 from truck.models import Company, Truck, Driver, TruckStatus, TruckInsurance, TruckInspection
 
+
 class Command(BaseCommand):
-    help = "Import full truck info including insurance and inspection"
+    help = "Import trucks and related info from local Excel file"
 
     def handle(self, *args, **kwargs):
-        url = "https://docs.google.com/spreadsheets/d/1w1dvleB--83DaNHMoyp6dswHtwgWL2yqZKe6hzl9sOo/export?format=csv&gid=1603469063"
-        df = pd.read_csv(url)
+        file_path = "trucks.xlsx"  # 📁 Local fayl nomi
+
+        try:
+            df = pd.read_excel(file_path)
+        except Exception as e:
+            self.stderr.write(self.style.ERROR(f"❌ Excel faylni o‘qishda xatolik: {e}"))
+            return
 
         def safe_date(val):
             try:
@@ -34,13 +40,15 @@ class Command(BaseCommand):
             driver_name = row.get("Driver")
             phone = row.get("Phone #")
 
-            # Get or create truck status
+            # 🔄 TruckStatus
             status = None
             if status_title:
-                status, _ = TruckStatus.objects.get_or_create(title=status_title)
+                status, _ = TruckStatus.objects.get_or_create(title=status_title.strip())
 
+            # 🔄 Company
             company, _ = Company.objects.get_or_create(title=company_title or "Unknown")
 
+            # 🔄 Truck
             truck, _ = Truck.objects.update_or_create(
                 number=truck_number,
                 defaults={
@@ -61,7 +69,7 @@ class Command(BaseCommand):
                 }
             )
 
-            # Create Driver
+            # 🔄 Driver
             reg_date = row.get("Registration")
             date_obj = safe_date(reg_date) or datetime.now().date()
             driver_type = "owner" if str(whose).lower() == "owner" else "company"
@@ -78,7 +86,7 @@ class Command(BaseCommand):
                     }
                 )
 
-            # Create TruckInsurance
+            # 🔄 TruckInsurance
             physical_exp = safe_date(row.get("Physical Exp"))
             TruckInsurance.objects.update_or_create(
                 truck=truck,
@@ -92,7 +100,7 @@ class Command(BaseCommand):
                 }
             )
 
-            # Create TruckInspection
+            # 🔄 TruckInspection
             TruckInspection.objects.update_or_create(
                 truck=truck,
                 defaults={
@@ -103,4 +111,4 @@ class Command(BaseCommand):
                 }
             )
 
-        self.stdout.write(self.style.SUCCESS("✅ Truck, Driver, Insurance, Inspection ma'lumotlari import qilindi."))
+        self.stdout.write(self.style.SUCCESS("✅ Excel'dan Truck va bog‘liq ma'lumotlar import qilindi."))
