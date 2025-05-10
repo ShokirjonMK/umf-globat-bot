@@ -314,7 +314,7 @@ def main_handlers(bot):
                 return
 
             truck_numbers = list(trucks.values_list('number', flat=True))
-            batch_size = 50
+            batch_size = 10
             total = len(truck_numbers)
 
             bot.send_message(call.message.chat.id, f"🚚 *{status.title}* statusidagi trucklar: {total} ta", parse_mode="Markdown")
