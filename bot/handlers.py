@@ -139,13 +139,13 @@ def main_handlers(bot):
             f"🎨 *Color:* {truck.color or '—'}\n"
             f"🆔 *VIN:* `{truck.vin_number or '—'}`\n"
             f"🔢 *Plate:* `{truck.plate_number or '—'}`\n"
-            f"📅 *Year:* {truck.year or '—'}\n"
+            f"🗕 *Year:* {truck.year or '—'}\n"
             f"🌐 *State:* {truck.st or '—'}\n"
             f"👥 *Whose Truck:* {truck.whose_truck or '—'}\n"
             f"📌 *Owner:* {truck.owner_name or '—'}\n"
             f"📍 *Driver:* {truck.driver_name or '—'}\n"
             f"📄 *Notes:* {truck.notes or '—'}\n"
-            f"🛠 *Status:* {truck.status.title if truck.status else '—'}\n\n"
+            f"🚰 *Status:* {truck.status.title if truck.status else '—'}\n\n"
         )
 
         orientations = TruckOrientation.objects.filter(truck=truck).select_related('orientation_type')
@@ -161,12 +161,14 @@ def main_handlers(bot):
 
         orientations = TruckOrientation.objects.filter(truck=truck).select_related('orientation_type')
 
-        orientation_text = "🧾 *Orientation statuslari:*\n\n"
-        markup = types.InlineKeyboardMarkup()
+        orientation_text = "🗞 *Orientation statuslari:*\n\n"
+        markup = types.InlineKeyboardMarkup(row_width=1)
 
         if user_id in ADMIN_IDS:
-            markup.add(types.InlineKeyboardButton("✏️ Orientation holatini o‘zgartirish", callback_data=f"edit:type:{truck.id}"))
-            markup.add(types.InlineKeyboardButton("🚛 Truck statusni o‘zgartirish", callback_data=f"edit:status:{truck.id}"))
+            markup.add(
+                types.InlineKeyboardButton("✏️ Orientation holatini o‘zgartirish", callback_data=f"edit:type:{truck.id}"),
+                types.InlineKeyboardButton("🚜 Truck statusni o‘zgartirish", callback_data=f"edit:status:{truck.id}")
+            )
 
         for orientation in orientations:
             status_icon = "✅" if orientation.status == "done" else "❌"
@@ -184,7 +186,6 @@ def main_handlers(bot):
         m = bot.send_message(chat_id, text, parse_mode="Markdown", reply_markup=markup if markup.keyboard else None)
         user_last_message[chat_id].append(m.message_id)
 
-
     @bot.callback_query_handler(func=lambda call: call.data.startswith("edit"))
     def handle_edit_callbacks(call):
         user_id = int(call.from_user.id)
@@ -200,27 +201,12 @@ def main_handlers(bot):
                 orientation = TruckOrientation.objects.get(id=orientation_id)
                 markup = types.InlineKeyboardMarkup()
                 markup.add(
-                    types.InlineKeyboardButton("✏️ Orientation holatini o‘zgartirish", callback_data=f"edit:type:{orientation_id}"),
-                    types.InlineKeyboardButton("🚛 Truck statusni o‘zgartirish", callback_data=f"edit:status:{orientation.truck.id}")
+                    types.InlineKeyboardButton("✏️ Orientation holatini o‘zgartirish", callback_data=f"edit:type:{orientation.truck.id}"),
+                    types.InlineKeyboardButton("🚜 Truck statusni o‘zgartirish", callback_data=f"edit:status:{orientation.truck.id}")
                 )
                 bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id, reply_markup=markup)
             except TruckOrientation.DoesNotExist:
                 bot.answer_callback_query(call.id, "❌ Orientation topilmadi.")
-
-        elif data[1] == "type":
-            orientation_id = data[2]
-            try:
-                orientation = TruckOrientation.objects.get(id=orientation_id)
-                orientation.status = (
-                    TruckOrientation.Status.NOT_DONE if orientation.status == "done" else TruckOrientation.Status.DONE
-                )
-                orientation.save()
-                bot.answer_callback_query(call.id, f"✅ Orientation holati: {orientation.status.upper()}")
-                delete_last(call.message.chat.id)
-                fake_message = SimpleNamespace(chat=call.message.chat, from_user=call.from_user, message_id=call.message.message_id)
-                process_truck_number(fake_message, orientation.truck.number)
-            except TruckOrientation.DoesNotExist:
-                bot.answer_callback_query(call.id, "❌ Ma'lumot topilmadi.")
 
         elif data[1] == "status":
             truck_id = data[2]
@@ -232,8 +218,28 @@ def main_handlers(bot):
                 bot.edit_message_text(
                     chat_id=call.message.chat.id,
                     message_id=call.message.message_id,
-                    text="🚛 Truck statusni tanlang:",
+                    text="🚜 Truck statusni tanlang:",
                     reply_markup=markup
+                )
+            except Truck.DoesNotExist:
+                bot.answer_callback_query(call.id, "❌ Truck topilmadi.")
+
+        elif data[1] == "type":
+            truck_id = data[2]
+            try:
+                truck = Truck.objects.get(id=truck_id)
+                markup = types.InlineKeyboardMarkup(row_width=2)
+                for otype in OrientationType.objects.all():
+                    markup.add(types.InlineKeyboardButton(
+                        text=otype.name,
+                        callback_data=f"set:type:{truck_id}:{otype.id}"
+                    ))
+                bot.edit_message_text(
+                    chat_id=call.message.chat.id,
+                    message_id=call.message.message_id,
+                    text="✏️ Qaysi *orientation* turini o‘zgartirasiz?",
+                    reply_markup=markup,
+                    parse_mode="Markdown"
                 )
             except Truck.DoesNotExist:
                 bot.answer_callback_query(call.id, "❌ Truck topilmadi.")
@@ -255,5 +261,42 @@ def main_handlers(bot):
             delete_last(call.message.chat.id)
             fake_message = SimpleNamespace(chat=call.message.chat, from_user=call.from_user, message_id=call.message.message_id)
             process_truck_number(fake_message, truck.number)
-        except Exception as e:
+        except Exception:
             bot.answer_callback_query(call.id, "❌ Xatolik yuz berdi.")
+
+    @bot.callback_query_handler(func=lambda call: call.data.startswith("set:type"))
+    def set_orientation_status(call):
+        user_id = int(call.from_user.id)
+        if user_id not in ADMIN_IDS:
+            bot.answer_callback_query(call.id, "⛔ Ruxsat yo‘q.", show_alert=True)
+            return
+
+        try:
+            _, _, truck_id, orientation_type_id = call.data.split(":")
+            truck = Truck.objects.get(id=truck_id)
+            otype = OrientationType.objects.get(id=orientation_type_id)
+
+            orientation, _ = TruckOrientation.objects.get_or_create(
+                truck=truck,
+                orientation_type=otype,
+                defaults={"status": TruckOrientation.Status.NOT_DONE}
+            )
+
+            orientation.status = (
+                TruckOrientation.Status.NOT_DONE if orientation.status == "done"
+                else TruckOrientation.Status.DONE
+            )
+            orientation.save()
+
+            bot.send_message(
+                call.message.chat.id,
+                f"✅ *{otype.name}* statusi: `{orientation.status}` ga o‘zgartirildi.",
+                parse_mode="Markdown"
+            )
+
+            delete_last(call.message.chat.id)
+            fake_message = SimpleNamespace(chat=call.message.chat, from_user=call.from_user, message_id=call.message.message_id)
+            process_truck_number(fake_message, truck.number)
+
+        except Exception:
+            bot.answer_callback_query(call.id, "❌ O‘zgartirishda xatolik yuz berdi.")
