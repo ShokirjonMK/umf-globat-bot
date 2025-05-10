@@ -262,3 +262,107 @@ def main_handlers(bot):
 
         except Exception:
             bot.answer_callback_query(call.id, "❌ O‘zgartirishda xatolik yuz berdi.")
+    
+    @bot.message_handler(commands=["status"])
+    def handle_status_command(message):
+        markup = types.InlineKeyboardMarkup(row_width=2)
+        for status in TruckStatus.objects.all():
+            markup.add(types.InlineKeyboardButton(
+                text=status.title,
+                callback_data=f"view:status:{status.id}"
+            ))
+        bot.send_message(message.chat.id, "🚦 Qaysi truck statusni ko‘rmoqchisiz?", reply_markup=markup)
+
+    @bot.callback_query_handler(func=lambda call: call.data.startswith("view:status:") or call.data.startswith("page:"))
+    def view_trucks_by_status(call):
+        try:
+            if call.data.startswith("view:status:"):
+                _, _, status_id = call.data.split(":")
+                page = 0
+            else:
+                _, status_id, page = call.data.split(":")
+                page = int(page)
+
+            status = TruckStatus.objects.get(id=status_id)
+            trucks = Truck.objects.filter(status=status)
+            truck_numbers = list(trucks.values_list('number', flat=True))
+
+            batch_size = 10
+            total_pages = (len(truck_numbers) + batch_size - 1) // batch_size
+            total_count = len(truck_numbers)
+
+            start = page * batch_size
+            end = start + batch_size
+            chunk = truck_numbers[start:end]
+
+            text = f"*{status.title}* statusidagi trucklar (sahifa {page + 1}/{total_pages}) - jami: {total_count} ta\n\n"
+            text += "\n".join(f"`{num}`" for num in chunk)
+
+            markup = types.InlineKeyboardMarkup()
+            buttons = []
+            if page > 0:
+                buttons.append(types.InlineKeyboardButton("⬅️ Oldingi", callback_data=f"page:{status.id}:{page - 1}"))
+            if page < total_pages - 1:
+                buttons.append(types.InlineKeyboardButton("Keyingi ➡️", callback_data=f"page:{status.id}:{page + 1}"))
+            if buttons:
+                markup.add(*buttons)
+
+            if call.data.startswith("view:status:"):
+                bot.send_message(call.message.chat.id, text, parse_mode="Markdown", reply_markup=markup)
+            else:
+                bot.edit_message_text(
+                    chat_id=call.message.chat.id,
+                    message_id=call.message.message_id,
+                    text=text,
+                    reply_markup=markup,
+                    parse_mode="Markdown"
+                )
+        except Exception as e:
+            bot.answer_callback_query(call.id, f"❌ Xatolik: {str(e)}", show_alert=True)
+
+    @bot.message_handler(commands=["truck"])
+    def handle_truck_command(message):
+        chat = message.chat
+        chat_id = chat.id
+        chat_id_str = str(chat_id)
+
+        if chat.type in ["group", "supergroup"]:
+            allowed_ids = list(AllowedGroup.objects.values_list("group_id", flat=True))
+            chat_username = chat.username
+            chat_invite_link = getattr(chat, "invite_link", None)
+
+            if not (
+                chat_id_str in allowed_ids or
+                (chat_username and chat_username in allowed_ids) or
+                (chat_invite_link and chat_invite_link in allowed_ids)
+            ):
+                bot.send_message(
+                    chat_id,
+                    "⛔ *Ushbu guruhda bot ishlashi taqiqlangan.*\nIltimos, botdan foydalanish uchun *admin bilan bog‘laning.*",
+                    parse_mode="Markdown"
+                )
+                return
+
+        try:
+            truck_number = message.text.split(" ", 1)[1].strip()
+        except IndexError:
+            m = bot.send_message(
+                chat_id,
+                "❗ Truck raqamini `/truck TRK-245` tarzida kiriting.",
+                parse_mode="Markdown"
+            )
+            user_last_message[chat_id] = [message.message_id, m.message_id]
+            return
+
+        TelegramUser.objects.update_or_create(
+            telegram_id=message.from_user.id,
+            defaults={
+                'first_name': message.from_user.first_name,
+                'last_name': message.from_user.last_name,
+                'username': message.from_user.username,
+                'language_code': message.from_user.language_code,
+                'is_bot': message.from_user.is_bot
+            }
+        )
+
+        process_truck_number(message, truck_number)
