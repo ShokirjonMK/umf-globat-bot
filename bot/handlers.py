@@ -41,13 +41,32 @@ def main_handlers(bot):
         )
 
         delete_last(message.chat.id)
-        m = bot.send_message(message.chat.id, "🔍 Truck raqamini kiriting (masalan: TRK-245):")
+        m = bot.send_message(message.chat.id, "🔍 Truck raqamini kiriting (masalan: /truck TRK-245):")
         user_last_message[message.chat.id] = [message.message_id, m.message_id]
-        bot.register_next_step_handler(message, process_truck_number)
 
+    @bot.message_handler(commands=["truck"])
+    def handle_truck_command(message):
+        try:
+            truck_number = message.text.split(" ", 1)[1].strip()
+        except IndexError:
+            m = bot.send_message(message.chat.id, "❗ Iltimos, truck raqamini kiriting: `/truck TRK-245`", parse_mode="Markdown")
+            user_last_message[message.chat.id] = [message.message_id, m.message_id]
+            return
 
-    def process_truck_number(message):
-        truck_number = message.text.strip()
+        TelegramUser.objects.update_or_create(
+            telegram_id=message.from_user.id,
+            defaults={
+                'first_name': message.from_user.first_name,
+                'last_name': message.from_user.last_name,
+                'username': message.from_user.username,
+                'language_code': message.from_user.language_code,
+                'is_bot': message.from_user.is_bot
+            }
+        )
+
+        process_truck_number(message, truck_number)
+
+    def process_truck_number(message, truck_number):
         chat_id = message.chat.id
         user_id = message.from_user.id
 
@@ -63,14 +82,14 @@ def main_handlers(bot):
         driver = Driver.objects.filter(truck=truck).order_by('-created_at').first()
         company_name = driver.company.title if driver and driver.company else "—"
         driver_info = (
-            f"*👤 Driver:* {driver.full_name}\n"
-            f"*🗓 Sana:* {driver.date}\n"
-            f"*🚦 Mode:* `{driver.mode}`\n"
-            f"*🔁 Type:* `{driver.driver_type}`\n"
-            f"*✅ Confirmation:* {driver.confirmation or '—'}\n"
-            f"*✍️ Sign:* {driver.sign or '—'}\n"
-            f"*📄 DocuSign:* {driver.docusign or '—'}\n"
-        ) if driver else "*👤 Driver:* —\n"
+            f"👤 Driver: {driver.full_name}\n"
+            f"🗓 Sana: {driver.date}\n"
+            f"🚦 Mode: `{driver.mode}`\n"
+            f"🔁 Type: `{driver.driver_type}`\n"
+            f"✅ Confirmation: {driver.confirmation or '—'}\n"
+            f"✍️ Sign: {driver.sign or '—'}\n"
+            f"📄 DocuSign: {driver.docusign or '—'}\n"
+        ) if driver else "👤 Driver: —\n"
 
         orientations = TruckOrientation.objects.filter(truck=truck).select_related('orientation_type')
         existing_type_ids = orientations.values_list('orientation_type_id', flat=True)
@@ -86,17 +105,17 @@ def main_handlers(bot):
         orientations = TruckOrientation.objects.filter(truck=truck).select_related('orientation_type')
 
         text = (
-            f"🚛 *Truck:* `{truck.number}`\n"
-            f"🏢 *Company:* {company_name}\n\n"
+            f"🚛 Truck: `{truck.number}`\n"
+            f"🏢 Company: {company_name}\n\n"
             f"{driver_info}"
-            f"🧾 *Orientation statuslari:*\n\n"
+            f"🧾 Orientation statuslari:\n\n"
         )
         markup = types.InlineKeyboardMarkup()
 
         for orientation in orientations:
             status_icon = "✅" if orientation.status == "done" else "❌"
             updated = orientation.updated_at.strftime("%Y-%m-%d %H:%M")
-            text += f"*{orientation.orientation_type.name}*: {status_icon} `{orientation.status}`\n_🕒 {updated}_\n"
+            text += f"{orientation.orientation_type.name}: {status_icon} `{orientation.status}`\n_🕒 {updated}_\n"
 
             if user_id in ADMIN_IDS:
                 markup.add(types.InlineKeyboardButton(
@@ -104,9 +123,8 @@ def main_handlers(bot):
                     callback_data=f"edit:{orientation.id}"
                 ))
 
-        m = bot.send_message(chat_id, text, reply_markup=markup if markup.keyboard else None)
+        m = bot.send_message(chat_id, text, parse_mode="Markdown", reply_markup=markup if markup.keyboard else None)
         user_last_message[chat_id] = [message.message_id, m.message_id]
-
 
     @bot.callback_query_handler(func=lambda call: call.data.startswith("edit:"))
     def handle_edit_orientation(call):
@@ -130,10 +148,9 @@ def main_handlers(bot):
             fake_message = SimpleNamespace(
                 chat=call.message.chat,
                 from_user=call.from_user,
-                text=truck.number,
                 message_id=call.message.message_id
             )
-            process_truck_number(fake_message)
+            process_truck_number(fake_message, truck.number)
 
         except TruckOrientation.DoesNotExist:
             bot.answer_callback_query(call.id, "❌ Ma'lumot topilmadi.")
