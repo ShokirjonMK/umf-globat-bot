@@ -213,14 +213,14 @@ def main_handlers(bot):
             types.InlineKeyboardButton("🚜 Truck statusni o‘zgartirish", callback_data=f"edit:status:{truck.id}")
         )
 
-        for orientation in orientations:
-            status_icon = "✅" if orientation.status == "done" else "❌"
-            updated = orientation.updated_at.strftime("%Y-%m-%d %H:%M")
-            orientation_text += f"{orientation.orientation_type.name}: {status_icon} `{orientation.status}`\n_🕒 {updated}_\n"
-            markup.add(types.InlineKeyboardButton(
-                text=f"{orientation.orientation_type.name} - EDIT",
-                callback_data=f"edit:{orientation.id}"
-            ))
+        # for orientation in orientations:
+        #     status_icon = "✅" if orientation.status == "done" else "❌"
+        #     updated = orientation.updated_at.strftime("%Y-%m-%d %H:%M")
+        #     orientation_text += f"{orientation.orientation_type.name}: {status_icon} `{orientation.status}`\n_🕒 {updated}_\n"
+        #     markup.add(types.InlineKeyboardButton(
+        #         text=f"{orientation.orientation_type.name} - EDIT",
+        #         callback_data=f"edit:{orientation.id}"
+        #     ))
 
         text = truck_info + driver_info + orientation_text
         m = bot.send_message(chat_id, text, parse_mode="Markdown", reply_markup=markup)
