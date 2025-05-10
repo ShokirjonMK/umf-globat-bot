@@ -142,11 +142,11 @@ def main_handlers(bot):
             types.InlineKeyboardButton("✏️ Orientation holatini o‘zgartirish", callback_data=f"edit:type:{truck.id}"),
             types.InlineKeyboardButton("🚜 Truck statusni o‘zgartirish", callback_data=f"edit:status:{truck.id}")
         )
-        for orientation in orientations:
-            markup.add(types.InlineKeyboardButton(
-                text=f"{orientation.orientation_type.name} - EDIT",
-                callback_data=f"edit:{orientation.id}"
-            ))
+        # for orientation in orientations:
+        #     markup.add(types.InlineKeyboardButton(
+        #         text=f"{orientation.orientation_type.name} - EDIT",
+        #         callback_data=f"edit:{orientation.id}"
+        #     ))
 
         text = truck_info + driver_info + orientation_text
         m = bot.send_message(chat_id, text, parse_mode="Markdown", reply_markup=markup)
