@@ -111,13 +111,6 @@ def main_handlers(bot):
             user_last_message[chat_id] = [message.message_id, m.message_id]
             return
 
-        if trucks.count() > 1:
-            note = f"ℹ️ *Diqqat!* `{truck_number}` raqamli {trucks.count()} ta truck mavjud. Faqat eng so‘nggisi ko‘rsatilmoqda."
-            warn_msg = bot.send_message(chat_id, note, parse_mode="Markdown")
-            user_last_message[chat_id] = [message.message_id, warn_msg.message_id]
-        else:
-            user_last_message[chat_id] = [message.message_id]
-
         truck = trucks.first()
 
         driver = Driver.objects.filter(truck=truck).order_by('-created_at').first()
@@ -137,18 +130,17 @@ def main_handlers(bot):
             f"🏢 *Company:* {company_name}\n"
             f"🔧 *Make/Model:* {truck.make or '—'} / {truck.model or '—'}\n"
             f"🎨 *Color:* {truck.color or '—'}\n"
-            f"🆔 *VIN:* `{truck.vin_number or '—'}`\n"
-            f"🔢 *Plate:* `{truck.plate_number or '—'}`\n"
-            f"📅 *Year:* {truck.year or '—'}\n"
+            f"🔑 *VIN:* `{truck.vin_number or '—'}`\n"
+            f"🔹 *Plate:* `{truck.plate_number or '—'}`\n"
+            f"🗕 *Year:* {truck.year or '—'}\n"
             f"🌐 *State:* {truck.st or '—'}\n"
             f"👥 *Whose Truck:* {truck.whose_truck or '—'}\n"
             f"📌 *Owner:* {truck.owner_name or '—'}\n"
             f"📍 *Driver:* {truck.driver_name or '—'}\n"
             f"📄 *Notes:* {truck.notes or '—'}\n"
-            f"🛠 *Status:* {truck.status.title if truck.status else '—'}\n\n"
+            f"🚲 *Status:* {truck.status.title if truck.status else '—'}\n\n"
         )
 
-        # Orientation yaratish
         orientations = TruckOrientation.objects.filter(truck=truck).select_related('orientation_type')
         existing_type_ids = orientations.values_list('orientation_type_id', flat=True)
         missing_types = OrientationType.objects.exclude(id__in=existing_type_ids)
@@ -161,9 +153,7 @@ def main_handlers(bot):
             )
 
         orientations = TruckOrientation.objects.filter(truck=truck).select_related('orientation_type')
-
-        # ❗️Yashirish kerak bo‘lgan turlar
-        excluded_types = ["DISPATCH", "SAFETY", "ELD"]  # Bular ko‘rinmaydi
+        excluded_types = ["DISPATCH", "SAFETY", "ELD"]
 
         orientation_text = "🧾 *Orientation statuslari:*\n\n"
         markup = types.InlineKeyboardMarkup(row_width=1)
@@ -176,8 +166,7 @@ def main_handlers(bot):
 
         for orientation in orientations:
             if orientation.orientation_type.name in excluded_types:
-                continue  # Skip this orientation
-
+                continue
             status_icon = "✅" if orientation.status == "done" else "❌"
             updated = orientation.updated_at.strftime("%Y-%m-%d %H:%M")
             orientation_text += f"{orientation.orientation_type.name}: {status_icon} `{orientation.status}`\n_🕒 {updated}_\n"
@@ -194,8 +183,6 @@ def main_handlers(bot):
         text = truck_info + driver_info + orientation_text
         m = bot.send_message(chat_id, text, parse_mode="Markdown", reply_markup=markup if markup.keyboard else None)
         user_last_message[chat_id].append(m.message_id)
-
-
 
     @bot.callback_query_handler(func=lambda call: call.data.startswith("edit"))
     def handle_edit_callbacks(call):
@@ -219,12 +206,11 @@ def main_handlers(bot):
             except TruckOrientation.DoesNotExist:
                 bot.answer_callback_query(call.id, "❌ Orientation topilmadi.")
 
-        elif data[1] == "type":
+        elif data[1] == "type" and len(data) == 3:
             truck_id = data[2]
             try:
                 truck = Truck.objects.get(id=truck_id)
                 markup = types.InlineKeyboardMarkup(row_width=2)
-
                 excluded_types = ["DISPATCH", "SAFETY", "ELD"]
                 for otype in OrientationType.objects.exclude(name__in=excluded_types):
                     markup.add(types.InlineKeyboardButton(
@@ -241,6 +227,21 @@ def main_handlers(bot):
             except Truck.DoesNotExist:
                 bot.answer_callback_query(call.id, "❌ Truck topilmadi.")
 
+        elif data[1] == "status" and len(data) == 3:
+            truck_id = data[2]
+            try:
+                truck = Truck.objects.get(id=truck_id)
+                markup = types.InlineKeyboardMarkup()
+                for s in TruckStatus.objects.all():
+                    markup.add(types.InlineKeyboardButton(s.title, callback_data=f"set:status:{truck_id}:{s.id}"))
+                bot.edit_message_text(
+                    chat_id=call.message.chat.id,
+                    message_id=call.message.message_id,
+                    text="🚜 Truck statusni tanlang:",
+                    reply_markup=markup
+                )
+            except Truck.DoesNotExist:
+                bot.answer_callback_query(call.id, "❌ Truck topilmadi.")
 
     @bot.callback_query_handler(func=lambda call: call.data.startswith("set:status"))
     def set_truck_status(call):
