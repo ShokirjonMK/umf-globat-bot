@@ -134,6 +134,7 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - production_static_volume_dev:/var/www/static
       - production_media_volume_dev:/var/www/media
+      - ./static_html:/var/www/html:ro 
     ports:
       - "80:80"
       - "443:443"
