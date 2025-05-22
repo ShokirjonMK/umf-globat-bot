@@ -1,0 +1,153 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Team Section
+--------------------------------------------------------------*/
+.team {
+  .swiper-wrapper {
+    height: auto !important;
+  }
+
+  .team-slider {
+    position: relative;
+    padding: 20px 0 60px;
+
+    .swiper-pagination {
+      bottom: 0;
+
+      .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        background-color: color-mix(in srgb, var(--accent-color), transparent 70%);
+        opacity: 1;
+        margin: 0 5px;
+        transition: 0.3s;
+      }
+
+      .swiper-pagination-bullet-active {
+        width: 30px;
+        border-radius: 5px;
+        background-color: var(--accent-color);
+      }
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      width: 40px;
+      height: 40px;
+      background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+      border-radius: 50%;
+      color: var(--contrast-color);
+      transition: 0.3s;
+
+      &:after {
+        font-size: 16px;
+      }
+
+      &:hover {
+        background-color: var(--accent-color);
+      }
+    }
+  }
+
+  .team-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+    background-color: var(--surface-color);
+    height: 100%;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+      .team-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .team-image img {
+        transform: scale(1.08);
+      }
+    }
+  }
+
+  .team-image {
+    position: relative;
+    overflow: hidden;
+
+    img {
+      transition: transform 0.6s ease;
+    }
+
+    .team-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background-color: var(--accent-color);
+        border-radius: 50%;
+        color: var(--contrast-color);
+        font-size: 16px;
+        transition: 0.3s;
+
+        &:hover {
+          background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
+          transform: translateY(-5px);
+        }
+      }
+    }
+  }
+
+  .team-content {
+    padding: 20px;
+    text-align: center;
+
+    h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    span {
+      display: block;
+      font-size: 14px;
+      color: color-mix(in srgb, var(--default-color), transparent 30%);
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 14px;
+      margin-bottom: 0;
+      color: color-mix(in srgb, var(--default-color), transparent 10%);
+    }
+  }
+
+  @media (max-width: 991px) {
+    .team-card {
+      margin-bottom: 20px;
+    }
+  }
+}
