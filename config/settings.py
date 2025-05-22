@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'channels',
+    'rest_framework',
     'truck',
 ]
 
@@ -192,3 +193,14 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 SESSION_COOKIE_SECURE = False  # Faqat test uchun!
 CSRF_COOKIE_SECURE = False      # Faqat test uchun!
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+}

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group, User
 from .models import (
-    TelegramUser, Company, OrientationType,
+    ScheduleInterview, TelegramUser, Company, OrientationType,
     Truck, TruckOrientation, Driver, AllowedGroup
 )
 from django_celery_beat.models import (
@@ -77,3 +77,12 @@ class DriverAdmin(admin.ModelAdmin):
     search_fields = ('full_name', 'company__title', 'truck__number')
     list_filter = ('mode', 'driver_type', 'company', 'date', 'sign', 'docusign')
     ordering = ('-date',)
+
+
+
+@admin.register(ScheduleInterview)
+class ScheduleInterviewAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone', 'created_at')
+    search_fields = ('name', 'email', 'phone')
+    list_filter = ('created_at',)
+    ordering = ('-created_at',)

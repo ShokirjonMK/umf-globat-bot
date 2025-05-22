@@ -5,6 +5,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views import View
 
+from rest_framework import generics
+from .models import ScheduleInterview
+from .serializers import ScheduleInterviewSerializer
+
 
 
 # 📌 Telegram BOT TOKEN
@@ -45,3 +49,11 @@ def set_webhook():
     bot.remove_webhook()
     bot.set_webhook(url=WEBHOOK_URL)
     print(f"✅ Webhook o‘rnatildi: {WEBHOOK_URL}")
+
+
+
+
+
+class ScheduleInterviewListCreateView(generics.ListCreateAPIView):
+    queryset = ScheduleInterview.objects.all()
+    serializer_class = ScheduleInterviewSerializer

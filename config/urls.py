@@ -3,9 +3,12 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from truck.views import TelegramWebhookView
+from truck.views import ScheduleInterviewListCreateView, TelegramWebhookView
+
+
 urlpatterns = [
     path('bot/webhook/', TelegramWebhookView.as_view(), name="telegram_webhook"), 
+    path('api/schedule/', ScheduleInterviewListCreateView.as_view(), name='schedule-list-create'),
     path('', admin.site.urls, name="truck_admin"), 
 ]
 

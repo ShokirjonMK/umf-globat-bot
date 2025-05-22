@@ -216,32 +216,36 @@
                 </div>
               </div>
             </div>
+
             <div class="col-lg-5" data-aos="fade-up" data-aos-delay="300">
               <div class="cta-form">
                 <h3>Schedule an interview</h3>
                 <p>Fill out the form below and our team will contact you within 24 hours.</p>
-                <form action="forms/consultation.php" method="post" class="php-email-form">
+                
+                <form id="schedule-form" class="php-email-form">
                   <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                   </div>
                   <div class="form-group mt-3">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
                   </div>
                   <div class="form-group mt-3">
-                    <input type="text" class="form-control" name="phone" placeholder="Your Phone">
+                    <input type="text" name="phone" class="form-control" placeholder="Your Phone">
                   </div>
-            
+
                   <div class="my-3">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Your message has been sent. Thank you!</div>
+                    <div class="loading" style="display:none;">Loading...</div>
+                    <div class="error-message" style="display:none;color:red;"></div>
+                    <div class="sent-message" style="display:none;color:green;">Your message has been sent. Thank you!</div>
                   </div>
+
                   <div class="text-center">
                     <button type="submit">Get Started</button>
                   </div>
                 </form>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -825,6 +829,47 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+    document.getElementById('schedule-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const name = form.name.value;
+      const email = form.email.value;
+      const phone = form.phone.value;
+
+      const loading = form.querySelector('.loading');
+      const error = form.querySelector('.error-message');
+      const success = form.querySelector('.sent-message');
+
+      loading.style.display = 'block';
+      error.style.display = 'none';
+      success.style.display = 'none';
+
+      fetch('https://umf.madami.uz/api/schedule/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, phone })
+      })
+      .then(response => {
+        loading.style.display = 'none';
+        if (!response.ok) {
+          return response.json().then(data => { throw data; });
+        }
+        success.style.display = 'block';
+        form.reset();
+      })
+      .catch(err => {
+        loading.style.display = 'none';
+        error.style.display = 'block';
+        error.textContent = err.detail || 'Submission failed. Please try again.';
+      });
+    });
+</script>
+
 
 </body>
 
