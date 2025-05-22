@@ -830,54 +830,56 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <script>
-    document.getElementById('schedule-form').addEventListener('submit', function(e) {
-      e.preventDefault();
+<script>
+  document.getElementById('schedule-form').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-      const form = e.target;
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const phone = form.phone.value.trim();
+    const form = e.target;
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const phone = form.phone.value.trim();
 
-      const loading = form.querySelector('.loading');
-      const error = form.querySelector('.error-message');
-      const success = form.querySelector('.sent-message');
+    const loading = form.querySelector('.loading');
+    const error = form.querySelector('.error-message');
+    const success = form.querySelector('.sent-message');
 
-      loading.style.display = 'block';
+    // Reset states before sending
+    loading.style.display = 'block';
+    error.style.display = 'none';
+    error.textContent = '';
+    success.style.display = 'none';
+
+    fetch('https://umf.madami.uz/api/schedule/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ name, email, phone })
+    })
+    .then(response => {
+      loading.style.display = 'none';
+      if (!response.ok) {
+        return response.json().then(err => { throw err; });
+      }
+
+      // ✅ Success holatida errorni butunlay tozalaymiz
       error.style.display = 'none';
       error.textContent = '';
+      success.style.display = 'block';
+
+      form.reset();
+    })
+    .catch(err => {
+      loading.style.display = 'none';
       success.style.display = 'none';
-
-      fetch('https://umf.madami.uz/api/schedule/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({ name, email, phone })
-      })
-      .then(response => {
-        loading.style.display = 'none';
-        if (!response.ok) {
-          return response.json().then(err => { throw err; });
-        }
-
-        error.style.display = 'none';
-        error.textContent = '';
-
-        success.style.display = 'block';
-        form.reset();
-      })
-      .catch(err => {
-        loading.style.display = 'none';
-        success.style.display = 'none';
-
-        error.style.display = 'block';
-        error.textContent = (err && typeof err === 'object') ?
-          Object.values(err).flat().join(' ') :
-          'Submission failed. Please try again.';
-      });
+      
+      error.style.display = 'block';
+      error.textContent = (err && typeof err === 'object') ?
+        Object.values(err).flat().join(' ') :
+        'Submission failed. Please try again.';
     });
+  });
 </script>
 
 
