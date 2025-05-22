@@ -239,22 +239,25 @@
                 <div class="cta-form">
                   <h3>Schedule an interview</h3>
                   <p>Fill out the form below and our team will contact you within 24 hours.</p>
-                  <form id="schedule-form" action="forms/consultation.php" method="post" class="php-email-form">
+
+                  <form id="schedule-form" class="php-email-form">
                     <div class="form-group">
-                      <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                      <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                     </div>
                     <div class="form-group mt-3">
-                      <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                      <input type="email" name="email" class="form-control" placeholder="Your Email" required>
                     </div>
                     <div class="form-group mt-3">
-                      <input type="text" class="form-control" name="phone" placeholder="Your Phone">
+                      <input type="text" name="phone" class="form-control" placeholder="Your Phone">
                     </div>
 
                     <div class="my-3">
-                      <div class="loading">Loading</div>
-                      <div class="error-message"></div>
-                      <div class="sent-message">Your message has been sent. Thank you!</div>
+                      <div class="loading" style="display:none;">Loading...</div>
+                      <div class="error-message" style="display:none;color:red;"></div>
+                      <div class="sent-message" style="display:none;color:green;">Your message has been sent. Thank you!
+                      </div>
                     </div>
+
                     <div class="text-center">
                       <button type="submit">Get Started</button>
                     </div>
