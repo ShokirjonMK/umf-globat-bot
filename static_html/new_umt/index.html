@@ -835,29 +835,32 @@
       e.preventDefault();
 
       const form = e.target;
-      const name = form.name.value;
-      const email = form.email.value;
-      const phone = form.phone.value;
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const phone = form.phone.value.trim();
 
       const loading = form.querySelector('.loading');
       const error = form.querySelector('.error-message');
       const success = form.querySelector('.sent-message');
 
+      // Reset UI
       loading.style.display = 'block';
       error.style.display = 'none';
+      error.textContent = '';
       success.style.display = 'none';
 
       fetch('https://umf.madami.uz/api/schedule/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({ name, email, phone })
       })
       .then(response => {
         loading.style.display = 'none';
         if (!response.ok) {
-          return response.json().then(data => { throw data; });
+          return response.json().then(err => { throw err; });
         }
         success.style.display = 'block';
         form.reset();
@@ -865,10 +868,14 @@
       .catch(err => {
         loading.style.display = 'none';
         error.style.display = 'block';
-        error.textContent = err.detail || 'Submission failed. Please try again.';
+        error.textContent = (err && typeof err === 'object') ?
+          Object.values(err).flat().join(' ') :
+          'Submission failed. Please try again.';
+        success.style.display = 'none';
       });
     });
 </script>
+
 
 
 </body>
