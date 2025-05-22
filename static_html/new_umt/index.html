@@ -96,7 +96,7 @@
           </div>
           <div class="col-lg-6">
             <div class="hero-image" data-aos="zoom-out" data-aos-delay="300">
-              <img src="assets/img/about/logo.jpg" alt="Consulting Services" class="img-fluid">
+              <img src="assets/img/about/trucksunny.png" alt="Consulting Services" class="img-fluid">
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@
         <div class="row align-items-center">
           <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="200">
             <div class="about-image">
-              <img src="assets/img/about/truckrainy.png" alt="About Our Consulting Firm" class="img-fluid main-image">
+              <img src="assets/img/about/truckrainy2.png" alt="About Our Consulting Firm" class="img-fluid main-image">
               <div class="experience-badge">
                 <span class="years">8+</span>
                 <span class="text">Years of Experience</span>
@@ -216,36 +216,32 @@
                 </div>
               </div>
             </div>
-
             <div class="col-lg-5" data-aos="fade-up" data-aos-delay="300">
               <div class="cta-form">
                 <h3>Schedule an interview</h3>
                 <p>Fill out the form below and our team will contact you within 24 hours.</p>
-                
-                <form id="schedule-form" class="php-email-form">
+                <form action="forms/consultation.php" method="post" class="php-email-form">
                   <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                    <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
                   </div>
                   <div class="form-group mt-3">
-                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                    <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
                   </div>
                   <div class="form-group mt-3">
-                    <input type="text" name="phone" class="form-control" placeholder="Your Phone">
+                    <input type="text" class="form-control" name="phone" placeholder="Your Phone">
                   </div>
-
+            
                   <div class="my-3">
-                    <div class="loading" style="display:none;">Loading...</div>
-                    <div class="error-message" style="display:none;color:red;"></div>
-                    <div class="sent-message" style="display:none;color:green;">Your message has been sent. Thank you!</div>
+                    <div class="loading">Loading</div>
+                    <div class="error-message"></div>
+                    <div class="sent-message">Your message has been sent. Thank you!</div>
                   </div>
-
                   <div class="text-center">
                     <button type="submit">Get Started</button>
                   </div>
                 </form>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -253,163 +249,7 @@
 
     
 
-    <!-- Team Section -->
-    <section id="team" class="team section">
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Team</h2>
-        <div><span>Check Our</span> <span class="description-title"> Team</span></div>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="team-slider swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 800,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": 1,
-              "spaceBetween": 30,
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "navigation": {
-                "nextEl": ".swiper-button-next",
-                "prevEl": ".swiper-button-prev"
-              },
-              "breakpoints": {
-                "576": {
-                  "slidesPerView": 2
-                },
-                "992": {
-                  "slidesPerView": 3
-                },
-                "1200": {
-                  "slidesPerView": 4
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="team-card">
-                <div class="team-image">
-                  <img src="assets/img/person/person-m-3.webp" class="img-fluid" alt="" loading="lazy">
-                  <div class="team-overlay">
-                    <div class="social-links">
-                      <a href="#"><i class="bi bi-twitter-x"></i></a>
-                      <a href="#"><i class="bi bi-facebook"></i></a>
-                      <a href="#"><i class="bi bi-instagram"></i></a>
-                      <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="team-content">
-                  <h3>Zoirjon</h3>
-                  <span>Asset manager</span>
-                 
-                </div>
-              </div><!-- End Team Card -->
-            </div><!-- End slide item -->
-
-            <div class="swiper-slide">
-              <div class="team-card">
-                <div class="team-image">
-                  <img src="assets/img/person/person-f-5.webp" class="img-fluid" alt="" loading="lazy">
-                  <div class="team-overlay">
-                    <div class="social-links">
-                      <a href="#"><i class="bi bi-twitter-x"></i></a>
-                      <a href="#"><i class="bi bi-facebook"></i></a>
-                      <a href="#"><i class="bi bi-instagram"></i></a>
-                      <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="team-content">
-                  <h3>Oyatullo</h3>
-                  <span>Accountant</span>
-                  
-                </div>
-              </div><!-- End Team Card -->
-            </div><!-- End slide item -->
-
-            <div class="swiper-slide">
-              <div class="team-card">
-                <div class="team-image">
-                  <img src="assets/img/person/person-m-8.webp" class="img-fluid" alt="" loading="lazy">
-                  <div class="team-overlay">
-                    <div class="social-links">
-                      <a href="#"><i class="bi bi-twitter-x"></i></a>
-                      <a href="#"><i class="bi bi-facebook"></i></a>
-                      <a href="#"><i class="bi bi-instagram"></i></a>
-                      <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="team-content">
-                  <h3>Firdavs</h3>
-                  <span>Dispatch manager</span>
-                </div>
-              </div><!-- End Team Card -->
-            </div><!-- End slide item -->
-
-            <div class="swiper-slide">
-              <div class="team-card">
-                <div class="team-image">
-                  <img src="assets/img/person/person-f-9.webp" class="img-fluid" alt="" loading="lazy">
-                  <div class="team-overlay">
-                    <div class="social-links">
-                      <a href="#"><i class="bi bi-twitter-x"></i></a>
-                      <a href="#"><i class="bi bi-facebook"></i></a>
-                      <a href="#"><i class="bi bi-instagram"></i></a>
-                      <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="team-content">
-                  <h3>Mohira</h3>
-                  <span>Safety manager</span>
-                  
-                </div>
-              </div><!-- End Team Card -->
-            </div><!-- End slide item -->
-
-            <div class="swiper-slide">
-              <div class="team-card">
-                <div class="team-image">
-                  <img src="assets/img/person/person-m-12.webp" class="img-fluid" alt="" loading="lazy">
-                  <div class="team-overlay">
-                    <div class="social-links">
-                      <a href="#"><i class="bi bi-twitter-x"></i></a>
-                      <a href="#"><i class="bi bi-facebook"></i></a>
-                      <a href="#"><i class="bi bi-instagram"></i></a>
-                      <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="team-content">
-                  <h3>Akmaljon</h3>
-                  <span>CEO/Founder</span>
-                  
-                </div>
-              </div><!-- End Team Card -->
-            </div><!-- End slide item -->
-
-          </div>
-          <div class="swiper-pagination"></div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
-
-      </div>
-
-    </section><!-- /Team Section -->
+   
 
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section light-background">
@@ -563,7 +403,7 @@
                 <i class="bi bi-star-fill"></i>
                 <i class="bi bi-star-fill"></i>
               </div>
-              <p>“I’ve worked with a lot of carriers, and UMT Global Logistics stands out. They care about their clients and go above and beyond to meet deadlines. Excellent service all around.”</p>
+              <p>Zor kompaniya</p>
               <div class="testimonial-footer">
                 <div class="testimonial-author">
                   <img src="assets/img/person/person-m-12.webp" alt="Author" class="img-fluid rounded-circle" loading="lazy">
@@ -829,60 +669,6 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-
-<script>
-  document.getElementById('schedule-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const form = e.target;
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const phone = form.phone.value.trim();
-
-    const loading = form.querySelector('.loading');
-    const error = form.querySelector('.error-message');
-    const success = form.querySelector('.sent-message');
-
-    // Reset states before sending
-    loading.style.display = 'block';
-    error.style.display = 'none';
-    error.textContent = '';
-    success.style.display = 'none';
-
-    fetch('https://umf.madami.uz/api/schedule/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({ name, email, phone })
-    })
-    .then(response => {
-      loading.style.display = 'none';
-      if (!response.ok) {
-        return response.json().then(err => { throw err; });
-      }
-
-      // ✅ Success holatida errorni butunlay tozalaymiz
-      error.style.display = 'none';
-      error.textContent = '';
-      success.style.display = 'block';
-
-      form.reset();
-    })
-    .catch(err => {
-      loading.style.display = 'none';
-      success.style.display = 'none';
-      
-      error.style.display = 'block';
-      error.textContent = (err && typeof err === 'object') ?
-        Object.values(err).flat().join(' ') :
-        'Submission failed. Please try again.';
-    });
-  });
-</script>
-
-
 
 </body>
 

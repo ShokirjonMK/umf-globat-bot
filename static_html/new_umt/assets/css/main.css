@@ -1,3 +1,4 @@
+
 /**
 * Template Name: Consulting
 * Template URL: https://bootstrapmade.com/bootstrap-consulting-website-template/
@@ -92,6 +93,7 @@ h6 {
 ------------------------------*/
 .php-email-form .error-message {
   display: none;
+  background: #df1529;
   color: #ffffff;
   text-align: left;
   padding: 15px;
@@ -720,6 +722,7 @@ section,
   background-color: var(--background-color);
   overflow: hidden;
   padding-bottom: 120px;
+
 }
 
 .hero .hero-content h2 {
@@ -727,7 +730,9 @@ section,
   font-weight: 700;
   margin-bottom: 1.5rem;
   line-height: 1.2;
-  color: var(--heading-color);
+color: #ffffff; /* White */
+
+
 }
 
 @media (max-width: 992px) {
@@ -826,6 +831,8 @@ section,
   height: auto;
   border-radius: 10px;
   transition: transform 0.5s ease;
+
+
 }
 
 .hero .hero-image img:hover {

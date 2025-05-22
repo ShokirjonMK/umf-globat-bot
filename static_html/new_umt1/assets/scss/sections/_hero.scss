@@ -1,0 +1,134 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+.hero {
+  padding-top: 150px;
+  position: relative;
+  background-color: var(--background-color);
+  overflow: hidden;
+  padding-bottom: 120px;
+
+  .hero-content {
+    h2 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      color: var(--heading-color);
+
+      @media (max-width: 992px) {
+        font-size: 2.5rem;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: var(--default-color);
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+
+      @media (max-width: 576px) {
+        flex-direction: column;
+      }
+
+      .btn {
+        padding: 12px 30px;
+        font-weight: 600;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+        color: var(--contrast-color);
+
+        &:hover {
+          background-color: color-mix(in srgb, var(--accent-color), #000 10%);
+          border-color: color-mix(in srgb, var(--accent-color), #000 10%);
+        }
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--accent-color);
+        color: var(--accent-color);
+
+        &:hover {
+          background-color: var(--accent-color);
+          color: var(--contrast-color);
+        }
+      }
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+
+      @media (max-width: 576px) {
+        flex-wrap: wrap;
+        gap: 1.5rem;
+      }
+
+      .stat-item {
+        h3 {
+          font-size: 2rem;
+          font-weight: 700;
+          color: var(--accent-color);
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          font-size: 0.9rem;
+          margin-bottom: 0;
+          color: var(--default-color);
+        }
+      }
+    }
+  }
+
+  .hero-image {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      transition: transform 0.5s ease;
+
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    padding: 120px 0 80px 0;
+
+    .hero-content {
+      margin-bottom: 3rem;
+      text-align: center;
+
+      .hero-btns {
+        justify-content: center;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+    }
+  }
+}

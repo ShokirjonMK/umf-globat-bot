@@ -1,0 +1,296 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Pricing Section
+--------------------------------------------------------------*/
+.pricing {
+  padding-top: 60px;
+  padding-bottom: 60px;
+
+  .pricing-toggle {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 50px;
+
+    span {
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0 15px;
+      color: var(--default-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &.active {
+        color: var(--accent-color);
+      }
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+
+      input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked+.slider {
+          background-color: var(--accent-color);
+
+          &:before {
+            transform: translateX(30px);
+          }
+        }
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: color-mix(in srgb, var(--accent-color), transparent 70%);
+        transition: 0.4s;
+        border-radius: 34px;
+
+        &:before {
+          position: absolute;
+          content: "";
+          height: 22px;
+          width: 22px;
+          left: 4px;
+          bottom: 4px;
+          background-color: white;
+          transition: 0.4s;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .discount-badge {
+      position: absolute;
+      top: -25px;
+      right: -15px;
+      background-color: var(--accent-color);
+      color: var(--contrast-color);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 20px;
+
+      @media (max-width: 576px) {
+        top: -30px;
+        right: 0;
+      }
+    }
+  }
+
+  .pricing-item {
+    background-color: var(--surface-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    &.featured {
+      border: 2px solid var(--accent-color);
+      transform: scale(1.05);
+      z-index: 1;
+
+      @media (max-width: 992px) {
+        transform: scale(1);
+      }
+
+      &:hover {
+        transform: translateY(-10px) scale(1.05);
+
+        @media (max-width: 992px) {
+          transform: translateY(-10px) scale(1);
+        }
+      }
+
+      .pricing-badge {
+        position: absolute;
+        top: 16px;
+        right: -35px;
+        background-color: var(--accent-color);
+        color: var(--contrast-color);
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 5px 40px;
+        transform: rotate(45deg);
+      }
+    }
+
+    .pricing-header {
+      padding: 30px;
+      text-align: center;
+      border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: var(--heading-color);
+      }
+
+      .price-monthly,
+      .price-yearly {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        margin-bottom: 10px;
+
+        span {
+          font-size: 1rem;
+          font-weight: 500;
+          color: var(--default-color);
+        }
+      }
+
+      p {
+        font-size: 0.9rem;
+        color: var(--default-color);
+        margin-bottom: 0;
+      }
+
+      .price-yearly {
+        display: none;
+      }
+    }
+
+    &.yearly-active {
+      .price-monthly {
+        display: none;
+      }
+
+      .price-yearly {
+        display: block;
+      }
+    }
+
+    .pricing-features {
+      padding: 30px;
+      flex-grow: 1;
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          padding: 10px 0;
+          font-size: 0.95rem;
+          color: var(--default-color);
+          display: flex;
+          align-items: center;
+
+          i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+
+            &.bi-check-circle {
+              color: #28a745;
+            }
+
+            &.bi-x-circle {
+              color: #dc3545;
+            }
+          }
+        }
+      }
+    }
+
+    .pricing-footer {
+      padding: 20px 30px 30px;
+      text-align: center;
+
+      .btn {
+        padding: 12px 30px;
+        font-weight: 600;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        width: 100%;
+      }
+
+      .btn-primary {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+        color: var(--contrast-color);
+
+        &:hover {
+          background-color: color-mix(in srgb, var(--accent-color), #000 10%);
+          border-color: color-mix(in srgb, var(--accent-color), #000 10%);
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--accent-color);
+        color: var(--accent-color);
+
+        &:hover {
+          background-color: var(--accent-color);
+          color: var(--contrast-color);
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+  }
+
+  .pricing-note {
+    p {
+      font-size: 1rem;
+      color: var(--default-color);
+
+      a {
+        color: var(--accent-color);
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  // Toggle functionality styles
+  body.pricing-yearly {
+    .pricing-toggle {
+      .monthly {
+        color: var(--default-color);
+      }
+
+      .yearly {
+        color: var(--accent-color);
+      }
+    }
+
+    .pricing-item {
+      .price-monthly {
+        display: none;
+      }
+
+      .price-yearly {
+        display: block;
+      }
+    }
+  }
+}
